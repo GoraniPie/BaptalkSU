@@ -8,25 +8,25 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_EmailAddress"
         android:layout_width="216dp"
         android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="76dp"
         android:text="회원가입"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv_Password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:text="이메일 아이디"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_EmailAddress" />
 
     <TextView
         android:id="@+id/textView3"
@@ -46,7 +46,7 @@
         android:layout_marginTop="15dp"
         android:text="학번"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/et_InputPassword" />
 
     <TextView
         android:id="@+id/textView5"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/et_InputEmail"
         android:layout_width="203dp"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -87,10 +87,10 @@
         android:inputType="textEmailAddress"
         android:text="abcd@gmail.com"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_Password" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/et_InputPassword"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
@@ -167,10 +167,12 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="105dp"
+        android:layout_marginTop="164dp"
         android:layout_marginEnd="16dp"
         android:text="인증번호 전송"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toEndOf="@+id/et_InputEmail"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -181,7 +183,17 @@
         android:text="인증번호가 전송되었습니다."
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/et_InputEmail"
         tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/bt_GoBack"
+        android:layout_width="79dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="뒤로"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
