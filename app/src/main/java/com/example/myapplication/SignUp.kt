@@ -3,8 +3,10 @@ package com.example.myapplication
 import android.os.Bundle
 import android.os.HandlerThread
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.firestore.FirebaseFirestore
 import java.sql.Time
 import java.util.logging.Handler
 
@@ -49,6 +52,20 @@ class SignUp : AppCompatActivity() {
             insets
         }
 
+        // 학과리스트 드롭다운 내용 연결
+        val spinnerDepartments: Spinner = findViewById(R.id.sp_MajorList)
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.departments_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // 드롭다운 설정
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // 어댑터를 스피너에 연결
+            spinnerDepartments.adapter = adapter
+        }
+
         // 창 뒤로가기
         val bt_GoBack = findViewById<TextView>(R.id.bt_GoBack)
         bt_GoBack.setOnClickListener {
@@ -58,6 +75,7 @@ class SignUp : AppCompatActivity() {
 
 
         auth = FirebaseAuth.getInstance()
+        val firestoreDB = FirebaseFirestore.getInstance()
 
         val bt_SendEmail = findViewById<Button>(R.id.bt_SendVerifyEmail)
 
