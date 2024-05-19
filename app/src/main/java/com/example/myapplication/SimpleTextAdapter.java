@@ -31,7 +31,6 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<SimpleTextAdapter.Vi
     public SimpleTextAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
-
         View view = inflater.inflate(R.layout.recyclerview_item, parent, false) ;
         SimpleTextAdapter.ViewHolder vh = new SimpleTextAdapter.ViewHolder(view) ;
 

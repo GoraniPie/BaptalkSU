@@ -170,14 +170,27 @@
 
     </RadioGroup>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler1"
-        android:scrollbars="vertical"
-        android:layout_width="119dp"
-        android:layout_height="256dp"
-        android:layout_marginStart="276dp"
-        android:layout_marginTop="214dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="173dp"
+        android:layout_height="212dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler1"
+            android:layout_width="119dp"
+            android:layout_height="256dp"
+            android:layout_marginStart="256dp"
+            android:layout_marginTop="92dp"
+            android:scrollbars="vertical" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
