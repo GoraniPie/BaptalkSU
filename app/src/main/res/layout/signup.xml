@@ -56,7 +56,7 @@
         android:layout_marginTop="15dp"
         android:text="학과"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/et_StudentID" />
 
     <TextView
         android:id="@+id/textView6"
@@ -85,7 +85,7 @@
         android:layout_marginStart="20dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:text="abcd@gmail.com"
+        android:text="intelpieservice@syuin.ac.kr"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Password" />
 
@@ -96,12 +96,12 @@
         android:layout_marginStart="20dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:text="abcd1234"
+        android:text="asdf1234!@"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/bt_Submit"
         android:layout_width="198dp"
         android:layout_height="61dp"
         android:layout_marginStart="160dp"
@@ -113,7 +113,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/et_StudentID"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
