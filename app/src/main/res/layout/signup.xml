@@ -62,11 +62,11 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="17dp"
         android:text="생년월일"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/textView7"
@@ -137,7 +137,7 @@
         android:id="@+id/tv_DatePicker"
         android:layout_width="211dp"
         android:layout_height="34dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:text="날짜"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -171,11 +171,13 @@
     </RadioGroup>
 
     <LinearLayout
-        android:layout_width="173dp"
-        android:layout_height="212dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="206dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="20dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler1"
