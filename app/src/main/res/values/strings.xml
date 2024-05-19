@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string-array name="departments_array">
+        <item>영어영문학과</item>
+        <item>경영학과</item>
+        <item>글로벌한국학과</item>
+        <item>유아교육과</item>
+        <item>항공관광외국어학부</item>
+        <item>물리치료학과</item>
+        <item>식품영양학과</item>
+        <item>사회복지학과</item>
+        <item>보건관리학과</item>
+        <item>상담심리학과</item>
+        <item>체육학과</item>
+        <item>약학과</item>
+        <item>간호학과</item>
+        <item>화학생명과학과</item>
+        <item>환경디자인원예학과</item>
+        <item>동물자원과학과</item>
+        <item>바이오융합공학과</item>
+        <item>인공지능융합학부</item>
+        <item>컴퓨터공학부</item>
+        <item>빅데이터클라우드공학과</item>
+        <item>건축학과</item>
+        <item>음악학과</item>
+        <item>아트앤디자인학과</item>
+        <item>신학과</item>
+    </string-array>
+</resources>
