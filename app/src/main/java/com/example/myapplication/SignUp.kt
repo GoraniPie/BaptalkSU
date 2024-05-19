@@ -15,9 +15,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -30,28 +28,7 @@ import java.util.Date
 import java.util.logging.Handler
 
 class SignUp : AppCompatActivity() {
-    /*
-
-
-    추가/수정해야될 사항 :
-
-    회원가입 페이지 "학과" 항목 구현
-
-    이메일 인증버튼 대신 회원가입 버튼만으로 구현
-     - 회원가입 버튼 누르면 폼 무결성 검사, 인증메일 전송까지 한번에 실행.
-       -> 로직 간소화, 구현 간편화
-
-    회원가입 로직 추가하기
-     - db 연동
-     - 인증 완료시 회원 정보를 db에 추가함.
-     - 추가한 뒤에 "인증 완료" 띄우기
-     - 인증 완료 못하면 어차피 1시간 뒤에 authentication 자동삭제
-
-
-     */
-    lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.signup)
