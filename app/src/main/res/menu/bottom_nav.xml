@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="모집"
-        android:id="@+id/home"
+        android:id="@+id/recruit"
         android:icon="@drawable/baseline_cottage_24"/>
     <item android:title="지도"
         android:id="@+id/map"
