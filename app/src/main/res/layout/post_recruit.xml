@@ -51,17 +51,21 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="70dp"
         android:text="설명"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="403dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="23dp"
         android:text="키워드"
-        tools:layout_editor_absoluteX="27dp"
-        tools:layout_editor_absoluteY="503dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
     <Button
         android:id="@+id/button4"
@@ -69,11 +73,12 @@
         android:layout_height="67dp"
         android:layout_marginStart="155dp"
         android:layout_marginEnd="155dp"
+        android:layout_marginBottom="60dp"
         android:text="작성하기"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="604dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextDate2"
@@ -89,11 +94,13 @@
         android:id="@+id/editTextText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="text"
         android:text="Name"
-        tools:layout_editor_absoluteX="27dp"
-        tools:layout_editor_absoluteY="436dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <EditText
         android:id="@+id/editTextText2"
@@ -109,7 +116,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="313dp"
         android:layout_height="48dp"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="534dp" />
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="모집"
+        android:id="@+id/home"
+        android:icon="@drawable/baseline_cottage_24"/>
+    <item android:title="지도"
+        android:id="@+id/map"
+        android:icon="@drawable/baseline_add_location_alt_24"/>
+    <item android:title="프로필"
+        android:id="@+id/profile"
+        android:icon="@drawable/baseline_account_circle_24"/>
+    <item android:title="대화방"
+        android:id="@+id/chat"
+        android:icon="@drawable/baseline_chat_24"/>
+</menu>
