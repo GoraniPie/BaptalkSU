@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
-// TODO: Rename parameter arguments, choose names that match
+/*
+TODO: 모집글 페이지 조회 구현, 모집글 상세조회 구현, 모집글 검색 구현
+ */
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"

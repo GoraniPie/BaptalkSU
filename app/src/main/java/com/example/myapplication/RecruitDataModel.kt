@@ -16,5 +16,6 @@ class RecruitDataModel {
     var uploader: String = ""
     var place: String = ""
     var created_at: Timestamp? = null
+    var baptime: Timestamp? = null
 
 }
