@@ -33,13 +33,13 @@ class Recruit : Fragment() {
     private lateinit var recruitAdapter: RecruitAdapter
     private val firestore = FirebaseFirestore.getInstance()
     // startactivity 대체
-    private lateinit var postNewLauncher: ActivityResultLauncher<Intent>
+    private lateinit var postRecruitmentLauncher: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
 
         }
-        postNewLauncher = registerForActivityResult(
+        postRecruitmentLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -64,29 +64,37 @@ class Recruit : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_recruit, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // bt_PostNew 버튼 클릭 리스너
-        val btPostNew = view.findViewById<Button>(R.id.bt_PostNew)
-        btPostNew.setOnClickListener {
-            val intent = Intent(activity, PostRecruitment::class.java)
-            startActivity(intent)
-        }
-
-        // RecyclerView 설정
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        // recyclerView 설정
+        recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recruitAdapter = RecruitAdapter(emptyList())
         recyclerView.adapter = recruitAdapter
 
+        // "작성하기" 버튼 클릭 리스너
+        val btPostNew = view.findViewById<Button>(R.id.bt_PostNew)
+        btPostNew.setOnClickListener {
+            //val intent = Intent(activity, PostRecruitment::class.java)
+            val intent = Intent(activity, PostRecruitment::class.java)
+            postRecruitmentLauncher.launch(intent)
+        }
+
         // Firestore에서 데이터 가져오기
+        loadRecruitData()
+
+    }
+
+    fun refreshRecyclerView() {
+        loadRecruitData()
+    }
+
+    private fun loadRecruitData() {
         firestore.collection("recruitment")
-            .orderBy("created_at", Query.Direction.DESCENDING) // 최신순으로 가져오기
+            .orderBy("created_at", Query.Direction.DESCENDING)
             .limit(8)
             .get()
             .addOnSuccessListener { documents ->
@@ -94,10 +102,8 @@ class Recruit : Fragment() {
                 recruitAdapter.updateList(recruitList)
             }
             .addOnFailureListener { exception ->
-                Log.w("MainActivity", "Error getting documents: ", exception)
+                Log.w("Recruit", "Error getting documents: ", exception)
             }
-        
-
     }
 
     companion object {

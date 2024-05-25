@@ -1,6 +1,8 @@
 package com.example.myapplication
 
+import android.app.Activity
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.View
@@ -40,6 +42,7 @@ class PostRecruitment : AppCompatActivity() {
         // 뒤로가기 버튼
         val goBackBtn = findViewById<Button>(R.id.bt_GoBack1)
         goBackBtn.setOnClickListener {
+            setResult(Activity.RESULT_OK)
             finish()
         }
 
@@ -191,8 +194,8 @@ class PostRecruitment : AppCompatActivity() {
             var keywordMajor = selectedMajor
             var keywordMBTI = selectedMBTI
             var keywordSex = selectedSex
-            val inputAgeMin = findViewById<EditText>(R.id.et_KeywordAgeMin).text.trim().toString()
 
+            val inputAgeMin = findViewById<EditText>(R.id.et_KeywordAgeMin).text.trim().toString()
             val keywordAgeMin: Int
             if (inputAgeMin.isEmpty()) {
                 keywordAgeMin = -1
@@ -273,13 +276,16 @@ class PostRecruitment : AppCompatActivity() {
                     "place" to place,
                     "post_id" to postID,
                     "title" to title,
-                    "uploader_id" to user?.uid
+                    "uploader_id" to user?.uid,
+                    "content" to content,
                 )
                 db.collection("recruitment").document(postID)
                     .set(recruitmentData)
 
-                // 닫기, TODO : 조회 리스트 갱신
+                // 닫기, TODO : 작성 후 조회 리스트 자동 갱신
+                setResult(Activity.RESULT_OK)
                 finish()
+
             }
         }
     }

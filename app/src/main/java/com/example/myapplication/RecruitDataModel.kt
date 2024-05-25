@@ -17,5 +17,5 @@ class RecruitDataModel {
     var place: String = ""
     var created_at: Timestamp? = null
     var baptime: Timestamp? = null
-
+    var content: String = ""
 }
