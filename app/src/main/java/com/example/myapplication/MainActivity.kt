@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,10 +14,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = RecruitBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         replaceFragment(Recruit())
+        setContentView(binding.root)
 
         binding.bottomNavigationView.setOnItemSelectedListener {
+            Log.i("nav bar", "item changed")
 
             when (it.itemId) {
 
@@ -25,25 +27,15 @@ class MainActivity : AppCompatActivity() {
                 R.id.profile -> replaceFragment(Profile())
                 R.id.chat -> replaceFragment(Chat())
 
-                else -> {
-
-                }
-
             }
 
             true
 
         }
 
-
-
-        setContentView(R.layout.recruit)
-
-
     }
 
     private fun replaceFragment(fragment : Fragment){
-
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout,fragment)
