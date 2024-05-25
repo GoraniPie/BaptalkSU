@@ -51,9 +51,15 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // firebase 관련
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore")
+
+    // 욕설 필터링 오픈소스
+    // https://github.com/VaneProject/bad-word-filtering?tab=readme-ov-file
+    implementation("io.github.vaneproject:badwordfiltering:1.0.0")
+
 }
 

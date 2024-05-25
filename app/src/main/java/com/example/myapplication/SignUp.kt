@@ -150,91 +150,36 @@ class SignUp : AppCompatActivity() {
             val emailDomain: String = userEmail.split('@').getOrNull(1) ?: "" // 도메인 추출
             // 아이디 비어있나 확인
             if (userEmail.isEmpty()) {
-                val dialogBuilder = AlertDialog.Builder(this)
-                dialogBuilder.setTitle("")
-                dialogBuilder.setMessage("삼육대학교 이메일(@syuin.ac.kr)을 입력해주세요.")
-                // 다이얼로그 팝업
-                dialogBuilder.setNegativeButton("닫기") { dialog, which ->
-                    dialog.dismiss()
-                }
-                dialogBuilder.create().show()
+                popUpDialog("이메일을 입력해주세요.")
             }
             // 학교 메일인지 확인
             else if (emailDomain != "syuin.ac.kr") {
-                val dialogBuilder = AlertDialog.Builder(this)
-                dialogBuilder.setTitle("")
-                dialogBuilder.setMessage("학교 메일을 입력해주세요.")
-                // 다이얼로그 팝업
-                dialogBuilder.setNegativeButton("닫기") { dialog, which ->
-                    dialog.dismiss()
-                }
-                dialogBuilder.create().show()
+                popUpDialog("삼육대학교 이메일(@syuin.ac.kr)을 입력해주세요.")
             }
             // 비밀번호 비어있나 확인
             else if (userPassword.isEmpty()) {
                 Log.i("password empty", "비밀번호 공란")
-                val dialogBuilder = AlertDialog.Builder(this)
-                dialogBuilder.setTitle("")
-                dialogBuilder.setMessage("비밀번호를 입력해주세요.")
-                // 다이얼로그 팝업
-                dialogBuilder.setNegativeButton("닫기") { dialog, which ->
-                    dialog.dismiss()
-                }
-                dialogBuilder.create().show()
+                popUpDialog("비밀번호를 입력해주세요.")
             }
             // 비밀번호 강도 검사
             else if (!isPasswordSecure(userPassword)) {
-                val dialogBuilder = AlertDialog.Builder(this)
-                dialogBuilder.setTitle("")
-                dialogBuilder.setMessage("비밀번호는 영어, 숫자, 특수문자를 포함한 8자 이상이어야합니다.")
-                // 다이얼로그 팝업
-                dialogBuilder.setNegativeButton("닫기") { dialog, which ->
-                    dialog.dismiss()
-                }
-                dialogBuilder.create().show()
+                popUpDialog("비밀번호는 영어, 숫자, 특수문자를 포함한 8자 이상이어야합니다.")
             }
             // 학번 검사
             else if (studentID.length != 10 && studentID.toInt() > (calendar.get(Calendar.YEAR) + 1) * 1000000) {
-                val dialogBuilder = AlertDialog.Builder(this)
-                dialogBuilder.setTitle("")
-                dialogBuilder.setMessage("잘못된 학번입니다.")
-                // 다이얼로그 팝업
-                dialogBuilder.setNegativeButton("닫기") { dialog, which ->
-                    dialog.dismiss()
-                }
-                dialogBuilder.create().show()
+                popUpDialog("잘못된 학번입니다.")
             }
+            // 전공 선택 안할시
             else if (selectedMajor == "") {
-                val dialogBuilder = AlertDialog.Builder(this)
-                dialogBuilder.setTitle("")
-                dialogBuilder.setMessage("학과를 선택해주세요.")
-                // 다이얼로그 팝업
-                dialogBuilder.setNegativeButton("닫기") { dialog, which ->
-                    dialog.dismiss()
-                }
-                dialogBuilder.create().show()
+                popUpDialog("학과를 선택해주세요.")
             }
             //날짜 비어있나 확인
             else if (userBirthdayYear > currentYear - 19) {
-                val dialogBuilder = AlertDialog.Builder(this)
-                dialogBuilder.setTitle("")
-                dialogBuilder.setMessage("잘못된 생일입니다.")
-                // 다이얼로그 팝업
-                dialogBuilder.setNegativeButton("닫기") { dialog, which ->
-                    dialog.dismiss()
-                }
-                dialogBuilder.create().show()
+                popUpDialog("잘못된 생일입니다.")
             }
             //성별 비어있나 검사
             else if (userSex == "") {
-                val dialogBuilder = AlertDialog.Builder(this)
-                dialogBuilder.setTitle("")
-                dialogBuilder.setMessage("성별을 입력해주세요.")
-                // 다이얼로그 팝업
-                dialogBuilder.setNegativeButton("닫기") { dialog, which ->
-                    dialog.dismiss()
-                }
-                dialogBuilder.create().show()
+                popUpDialog("성별을 입력해주세요.")
             }
             else { // 모든 검사 통과시
                 // Firebase authentication에 사용자 등록 요청
@@ -289,14 +234,7 @@ class SignUp : AppCompatActivity() {
                             //중복이메일
                             if (exception is FirebaseAuthUserCollisionException) {
                                 Log.w("중복이메일", "이미 등록된 사용자입니다.", exception)
-                                val dialogBuilder = AlertDialog.Builder(this)
-                                dialogBuilder.setTitle("")
-                                dialogBuilder.setMessage("이미 존재하는 이메일입니다.")
-                                // 다이얼로그 팝업
-                                dialogBuilder.setNegativeButton("닫기") { dialog, which ->
-                                    dialog.dismiss()
-                                }
-                                dialogBuilder.create().show()
+                                popUpDialog("이미 존재하는 이메일입니다.")
                             }
                             //기타 에러
                             else {
@@ -317,7 +255,7 @@ class SignUp : AppCompatActivity() {
         val pattern = Regex("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+\$).{8,}\$")
         return pattern.matches(password)
     }
-    fun popUpDialog(msg: String) {
+    public fun popUpDialog(msg: String) {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setTitle("")
         dialogBuilder.setMessage(msg)
