@@ -18,14 +18,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setOnItemSelectedListener {
 
-            when(it.itemId){
+            when (it.itemId) {
 
                 R.id.recruit -> replaceFragment(Recruit())
                 R.id.map -> replaceFragment(Map())
                 R.id.profile -> replaceFragment(Profile())
                 R.id.chat -> replaceFragment(Chat())
 
-                else ->{
+                else -> {
 
                 }
 
@@ -38,11 +38,8 @@ class MainActivity : AppCompatActivity() {
 
 
         setContentView(R.layout.recruit)
-        val bt_PostNew = findViewById<Button>(R.id.bt_PostNew)
-        bt_PostNew.setOnClickListener {
-            val intent = Intent(this, PostRecruitment::class.java)
-            startActivity(intent)
-        }
+
+
     }
 
     private fun replaceFragment(fragment : Fragment){
