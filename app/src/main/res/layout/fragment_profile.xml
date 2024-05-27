@@ -84,15 +84,10 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="31dp"
         android:layout_marginEnd="50dp"
-<<<<<<< HEAD
-        android:background="#B7E1F6"
-=======
         android:background="#20CCCCCC"
->>>>>>> a119937bf0370146c19453dae8f6ab358ba38a53
         android:gravity="start"
         android:text="북마크"
         android:textColor="#000000"
-        android:textColorLink="@color/design_default_color_background"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,15 +101,10 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="50dp"
-<<<<<<< HEAD
-        android:background="#B7E1F6"
-=======
         android:background="#20CCCCCC"
->>>>>>> a119937bf0370146c19453dae8f6ab358ba38a53
         android:gravity="start"
         android:text="이전 방문 장소"
         android:textColor="#000000"
-        android:textColorLink="@color/design_default_color_background"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -128,15 +118,10 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="50dp"
-<<<<<<< HEAD
-        android:background="#B7E1F6"
-=======
         android:background="#20CCCCCC"
->>>>>>> a119937bf0370146c19453dae8f6ab358ba38a53
         android:gravity="start"
         android:text="설정"
         android:textColor="#000000"
-        android:textColorLink="@color/design_default_color_background"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,15 +135,10 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="50dp"
-<<<<<<< HEAD
-        android:background="#B7E1F6"
-=======
         android:background="#20CCCCCC"
->>>>>>> a119937bf0370146c19453dae8f6ab358ba38a53
         android:gravity="start"
         android:text="버전"
         android:textColor="#000000"
-        android:textColorLink="@color/design_default_color_background"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,7 +150,6 @@
         android:layout_height="50sp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="345dp"
-        android:contentDescription="@string/common_google_play_services_enable_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_bookmarks_24" />
@@ -181,7 +160,6 @@
         android:layout_height="50sp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="22dp"
-        android:contentDescription="@string/common_google_play_services_enable_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton6"
         app:srcCompat="@drawable/baseline_lan_24" />
@@ -192,7 +170,6 @@
         android:layout_height="50sp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="22dp"
-        android:contentDescription="@string/common_google_play_services_enable_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton8"
         app:srcCompat="@drawable/baseline_build_24" />
@@ -203,7 +180,6 @@
         android:layout_height="50sp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="22dp"
-        android:contentDescription="@string/common_google_play_services_enable_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton7"
         app:srcCompat="@drawable/baseline_find_in_page_24" />
