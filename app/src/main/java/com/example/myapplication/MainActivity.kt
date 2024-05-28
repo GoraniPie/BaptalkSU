@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = RecruitBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 설정버튼 연결
+        val btSettings: ImageButton = findViewById<ImageButton>(R.id.ibt_Settings)
+        btSettings.setOnClickListener {
+            val intent = Intent(this, Settings::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         // 프래그먼트(모집글조회) 작성 인텐트 끝나면 리사이클뷰 갱신
         postRecruitmentLauncher = registerForActivityResult(

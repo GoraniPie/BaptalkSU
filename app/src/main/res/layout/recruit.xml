@@ -41,8 +41,8 @@
 
     </FrameLayout>
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <ImageButton
+        android:id="@+id/ibt_Settings"
         android:layout_width="66dp"
         android:layout_height="48dp"
         app:layout_constraintBottom_toTopOf="@+id/frame_layout"

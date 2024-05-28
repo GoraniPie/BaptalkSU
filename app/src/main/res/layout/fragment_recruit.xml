@@ -82,7 +82,7 @@
     <!-- Add Item Button -->
 
     <ImageButton
-        android:id="@+id/bt_PostNew"
+        android:id="@+id/ibt_PostNew"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginEnd="28dp"

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -77,7 +76,7 @@ class Recruit : Fragment() {
         recyclerView.adapter = recruitAdapter
 
         // "작성하기" 버튼 클릭 리스너
-        val btPostNew = view.findViewById<ImageButton>(R.id.bt_PostNew)
+        val btPostNew = view.findViewById<ImageButton>(R.id.ibt_PostNew)
         btPostNew.setOnClickListener {
             //val intent = Intent(activity, PostRecruitment::class.java)
             val intent = Intent(activity, PostRecruitment::class.java)
