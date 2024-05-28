@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -13,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -20,19 +22,23 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vane.badwordfiltering.BadWordFiltering
-import java.util.Date
 import java.util.UUID
 
 class PostRecruitment : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.post_recruit)
+        database = FirebaseDatabase.getInstance().reference
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -282,9 +288,12 @@ class PostRecruitment : AppCompatActivity() {
                 db.collection("recruitment").document(postID)
                     .set(recruitmentData)
 
-                // 닫기, TODO : 작성 후 조회 리스트 자동 갱신
+                // 모집글 생성 후 채팅방 생성
+                createNewChatRoom(recruitmentData)
+
                 setResult(Activity.RESULT_OK)
                 finish()
+
 
             }
         }
@@ -308,5 +317,41 @@ class PostRecruitment : AppCompatActivity() {
 
         val timestamp = Timestamp(calendar.time)
         return timestamp
+    }
+    private fun createNewChatRoom(recruitmentData: HashMap<String, Any?>) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val roomId: String = recruitmentData["post_id"] as String
+        database.child("chatRooms").setValue(roomId)
+        /*
+        if (roomId == null) {
+            Toast.makeText(this, "Failed to create chat room", Toast.LENGTH_SHORT).show()
+            return
+        }
+         */
+
+        val users = mapOf(currentUser.uid to true)
+        val chatRoom = ChatRoom(
+            roomId = roomId,
+            roomName = recruitmentData["title"].toString(),
+            lastMessage = "",
+            lastMessageSender = "",
+            lastMessageTime = System.currentTimeMillis(),
+            users = users
+        )
+
+        database.child("chatRooms").child(roomId).setValue(chatRoom).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val intent = Intent(this, ChatActivity::class.java)
+                intent.putExtra("roomId", roomId)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Failed to create chat room", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

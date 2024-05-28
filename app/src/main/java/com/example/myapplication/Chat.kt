@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -41,12 +43,18 @@ class Chat : Fragment() {
 
         database = FirebaseDatabase.getInstance().reference.child("chatRooms")
 
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            Toast.makeText(context, "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 chatRooms.clear()
                 for (data in snapshot.children) {
                     val chatRoom = data.getValue(ChatRoom::class.java)
-                    if (chatRoom != null) {
+                    if (chatRoom != null && chatRoom.users.containsKey(currentUser.uid)) {
                         chatRooms.add(chatRoom)
                     }
                 }
@@ -57,5 +65,6 @@ class Chat : Fragment() {
                 // Handle error
             }
         })
+
     }
 }

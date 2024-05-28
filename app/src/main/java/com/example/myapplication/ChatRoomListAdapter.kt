@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import java.text.DateFormat
+import java.util.Date
 
 class ChatRoomAdapter(
     private val chatRooms: List<ChatRoom>,
@@ -34,7 +35,7 @@ class ChatRoomAdapter(
         holder.roomName.text = chatRoom.roomName
         holder.lastMessage.text = chatRoom.lastMessage
         holder.lastMessageSender.text = chatRoom.lastMessageSender
-        holder.lastMessageTime.text = DateFormat.getDateTimeInstance().format(chatRoom.lastMessageTime)
+        holder.lastMessageTime.text = DateFormat.getDateTimeInstance().format(Date(chatRoom.lastMessageTime))
 
         holder.itemView.setOnClickListener {
             onItemClick(chatRoom)

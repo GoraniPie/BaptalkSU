@@ -1,10 +1,19 @@
 package com.example.myapplication
 
+import android.app.Dialog
+import android.content.Intent
 import android.icu.util.Calendar
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.RecyclerView
 
 class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
@@ -33,6 +42,39 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
         val hour = calendar.get(Calendar.HOUR_OF_DAY).toString()
         val minute = calendar.get(Calendar.MINUTE).toString()
         holder.baptime.text = "식사 시간 : ${hour}시 ${minute}분"
+
+        holder.itemView.setOnClickListener {
+            val dialog = Dialog(holder.itemView.context)
+            dialog.setContentView(R.layout.detail_recruit)
+
+            val titleTextView = dialog.findViewById<TextView>(R.id.tv_Title)
+            val placeTextView = dialog.findViewById<TextView>(R.id.tv_Place)
+            val baptimeTextView = dialog.findViewById<TextView>(R.id.tv_Time)
+            val keywordMajor = dialog.findViewById<TextView>(R.id.tv_KeywordMajor)
+            //val keywordSex = dialog.findViewById<TextView>(R.id.tv_KeywordSex)
+            val keywordMBTI = dialog.findViewById<TextView>(R.id.tv_KeywordMBTI)
+
+            // 닫기 버튼
+            val btClosePopup = dialog.findViewById<Button>(R.id.bt_ClosePopup)
+            btClosePopup.setOnClickListener {
+                Log.i("팝업버튼 닫기", "클릭확인됨")
+                dialog.dismiss()
+            }
+
+            // 아이템 데이터를 설정
+            titleTextView.text = recruit.title
+            placeTextView.text = "식사 장소 : ${recruit.place}"
+            baptimeTextView.text = "식사 시간 : ${hour}시 ${minute}분"
+
+            val btJoin = dialog.findViewById<Button>(R.id.bt_EnterRecruit)
+            btJoin.setOnClickListener {
+                Log.i("참여하기", "클릭됨")
+                // join 채팅방!
+            }
+
+            dialog.show()
+        }
+
     }
 
     override fun getItemCount() = recruitList.size
