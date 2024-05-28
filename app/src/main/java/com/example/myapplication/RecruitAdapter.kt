@@ -10,11 +10,15 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
     RecyclerView.Adapter<RecruitAdapter.RecruitViewHolder>() {
@@ -69,7 +73,23 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
             val btJoin = dialog.findViewById<Button>(R.id.bt_EnterRecruit)
             btJoin.setOnClickListener {
                 Log.i("참여하기", "클릭됨")
-                // join 채팅방!
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                if (currentUser == null) {
+                    return@setOnClickListener
+                }
+
+                // 채팅방의 사용자 목록에 현재 사용자 추가
+                val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+
+                database.child("chatRooms").child(recruit.post_id).child("users").child(currentUser.uid).setValue(true)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.i("채팅방 참여 성공", "ㅇㅇ")
+                        }
+                        else {
+                            Log.e("채팅방 참여 실패", "ㅇㅇ")
+                        }
+                    }
             }
 
             dialog.show()

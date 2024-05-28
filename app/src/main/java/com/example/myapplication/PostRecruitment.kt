@@ -201,7 +201,7 @@ class PostRecruitment : AppCompatActivity() {
             var keywordMBTI = selectedMBTI
             var keywordSex = selectedSex
 
-            val inputAgeMin = findViewById<EditText>(R.id.et_KeywordAgeMin).text.trim().toString()
+            val inputAgeMin = findViewById<EditText>(R.id.et_KeywordAgeMin).text.trim().toString()?:""
             val keywordAgeMin: Int
             if (inputAgeMin.isEmpty()) {
                 keywordAgeMin = -1
@@ -210,7 +210,7 @@ class PostRecruitment : AppCompatActivity() {
                 keywordAgeMin = inputAgeMin.toInt()
             }
 
-            val inputAgeMax = findViewById<EditText>(R.id.et_KeywordAgeMax).text.trim().toString()
+            val inputAgeMax = findViewById<EditText>(R.id.et_KeywordAgeMax).text.trim().toString()?:""
             val keywordAgeMax: Int
             if (inputAgeMin.isEmpty()) {
                 keywordAgeMax = -1

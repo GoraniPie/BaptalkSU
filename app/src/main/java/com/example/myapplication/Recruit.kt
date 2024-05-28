@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
@@ -76,7 +77,7 @@ class Recruit : Fragment() {
         recyclerView.adapter = recruitAdapter
 
         // "작성하기" 버튼 클릭 리스너
-        val btPostNew = view.findViewById<Button>(R.id.bt_PostNew)
+        val btPostNew = view.findViewById<ImageButton>(R.id.bt_PostNew)
         btPostNew.setOnClickListener {
             //val intent = Intent(activity, PostRecruitment::class.java)
             val intent = Intent(activity, PostRecruitment::class.java)
@@ -106,23 +107,4 @@ class Recruit : Fragment() {
             }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Recruit.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Recruit().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
