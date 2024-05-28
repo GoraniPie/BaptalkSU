@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/button_back"
+        android:id="@+id/ibt_GoBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_back"
+        app:layout_constraintTop_toBottomOf="@id/ibt_GoBack"
         android:elevation="4dp">
 
         <LinearLayout
@@ -96,11 +96,12 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_DeleteAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원탈퇴"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>

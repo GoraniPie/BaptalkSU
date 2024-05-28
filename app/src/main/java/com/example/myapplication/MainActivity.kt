@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         btSettings.setOnClickListener {
             val intent = Intent(this, Settings::class.java)
             startActivity(intent)
-            finish()
         }
 
         // 프래그먼트(모집글조회) 작성 인텐트 끝나면 리사이클뷰 갱신

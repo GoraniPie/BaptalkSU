@@ -234,7 +234,7 @@ class SignUp : AppCompatActivity() {
 
     fun isPasswordSecure(password: String): Boolean {
         // 8자 이상, 영어 숫자 특수문자 각각 1개 이상 포함
-        val pattern = Regex("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+\$).{8,}\$")
+        val pattern = Regex("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&+=])(?=\\S+\$).{8,}\$")
         return pattern.matches(password)
     }
     public fun popUpDialog(msg: String) {
