@@ -105,7 +105,7 @@ class PostRecruitment : AppCompatActivity() {
             "편의점",
             "카페공강",
             "매머드커피",
-
+            "오렌지몽키파스타&마르코죤스피자",
         )
         // 어댑터 설정
         val autocompadapter: ArrayAdapter<String> = ArrayAdapter(
