@@ -7,15 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".LogIn">
 
+
     <ImageView
         android:id="@+id/p_imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="158dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_width="120dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="96dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon"
@@ -24,95 +22,28 @@
 
     <TextView
         android:id="@+id/p_textView"
-        android:layout_width="116dp"
-        android:layout_height="69dp"
+        android:layout_width="85dp"
+        android:layout_height="40dp"
         android:layout_marginStart="120dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="120dp"
         android:text="프로필"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/p_textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="175dp"
-        android:text="이름"
+        android:layout_width="124dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="108dp"
+        android:text="김철수"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/p_imageView" />
-
-    <TextView
-        android:id="@+id/p_textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="178dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="178dp"
-        android:text="이메일"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/p_textView2" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="300sp"
-        android:layout_height="48sp"
-        android:layout_gravity="start"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="50dp"
-        android:background="#20CCCCCC"
-        android:gravity="start"
-        android:text="북마크"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/p_textView3" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="300sp"
-        android:layout_height="48sp"
-        android:layout_gravity="start"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="50dp"
-        android:background="#20CCCCCC"
-        android:gravity="start"
-        android:text="이전 방문 장소"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
-
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="300sp"
-        android:layout_height="48sp"
-        android:layout_gravity="start"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="50dp"
-        android:background="#20CCCCCC"
-        android:gravity="start"
-        android:text="설정"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/p_textView" />
 
     <Button
         android:id="@+id/button9"
@@ -120,56 +51,66 @@
         android:layout_height="48sp"
         android:layout_gravity="start"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="50dp"
+        android:layout_marginBottom="108dp"
         android:background="#20CCCCCC"
         android:gravity="start"
         android:text="버전"
         android:textColor="#000000"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
-
-    <ImageButton
-        android:id="@+id/imageButton7"
-        android:layout_width="48sp"
-        android:layout_height="50sp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="345dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_bookmarks_24" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton9"
         android:layout_width="48sp"
         android:layout_height="50sp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="104dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton6"
         app:srcCompat="@drawable/baseline_lan_24" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="300sp"
+        android:layout_height="48sp"
+        android:layout_gravity="start"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="#20CCCCCC"
+        android:gravity="start"
+        android:text="설정"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/button9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton6"
         android:layout_width="48sp"
         android:layout_height="50sp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton8"
         app:srcCompat="@drawable/baseline_build_24" />
 
-    <ImageButton
-        android:id="@+id/imageButton8"
-        android:layout_width="48sp"
-        android:layout_height="50sp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="22dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton7"
-        app:srcCompat="@drawable/baseline_find_in_page_24" />
+    <TextView
+        android:id="@+id/p_textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="76dp"
+        android:text="uihiy@syuin.ac.kr"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_textView2" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -180,5 +121,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_create_24" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="116dp"
+        android:text="2020123456"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p_textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
