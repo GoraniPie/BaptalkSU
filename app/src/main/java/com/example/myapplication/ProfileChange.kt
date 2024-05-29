@@ -241,6 +241,7 @@ class ProfileChange : AppCompatActivity() {
                         "mbti" to userMBTI,
                     )
                     val docRef = firestore.collection("user").document(uid)
+                    val resultIntent = Intent()
                     docRef.get().addOnSuccessListener { document ->
                         if (document != null && document.exists()) {
                             // 이미 있는 애트리뷰트는 업데이트
@@ -249,12 +250,11 @@ class ProfileChange : AppCompatActivity() {
                             // 없는 애트리뷰트는 추가
                             docRef.set(userDB)
                         }
+                    }.addOnSuccessListener {
+                        setResult(Activity.RESULT_OK, resultIntent)
                     }.addOnFailureListener { exception ->
                         popUpDialog("프로필 갱신에 실패했습니다.")
                     }
-
-                    val resultIntent = Intent()
-                    setResult(Activity.RESULT_OK, resultIntent)
                     finish()
                 }
             }

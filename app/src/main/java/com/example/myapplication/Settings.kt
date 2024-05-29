@@ -43,7 +43,7 @@ class Settings : AppCompatActivity() {
         dialogBuilder.setView(editText)
 
         dialogBuilder.setPositiveButton("탈퇴하기") { dialogInterface, _ ->
-            val inputText = editText.text.toString().trim() // trim()을 추가하여 공백 제거
+            val inputText = editText.text.toString().trim()
             if (inputText == "탈퇴하겠습니다.") {
                 reauthenticateAndDeleteAccount()
             } else {
@@ -125,7 +125,13 @@ class Settings : AppCompatActivity() {
     }
 
     private fun showCompletionDialog() {
+        // 로그인 유지 인증 정보 삭제
         val dialogBuilder = AlertDialog.Builder(this)
+        val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+
         dialogBuilder.setTitle("탈퇴 완료")
         dialogBuilder.setMessage("메인 화면으로 돌아갑니다.")
         dialogBuilder.setNegativeButton("닫기") { dialog, _ ->
