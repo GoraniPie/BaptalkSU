@@ -21,6 +21,7 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
         val title: TextView = itemView.findViewById(R.id.recruitTitle)
         val baptime: TextView = itemView.findViewById(R.id.recruitBaptime)
         val place: TextView = itemView.findViewById(R.id.recruitPlace)
+        val uploader: TextView = itemView.findViewById(R.id.recruitUploader)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecruitViewHolder {
@@ -31,6 +32,10 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
 
     override fun onBindViewHolder(holder: RecruitViewHolder, position: Int) {
         val recruit = recruitList[position]
+
+        if (recruit.uploader == "") holder.uploader.text = "탈퇴한 사용자"
+        else holder.uploader.text = recruit.uploader
+
         holder.title.text = recruit.title
         holder.place.text = "식사 장소 : ${recruit.place}"
 
@@ -85,7 +90,6 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
                         }
                     }
             }
-
             dialog.show()
         }
 

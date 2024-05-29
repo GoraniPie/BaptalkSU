@@ -202,18 +202,18 @@ class PostRecruitment : AppCompatActivity() {
             var keywordMBTI = selectedMBTI
             var keywordSex = selectedSex
 
-            val inputAgeMin = findViewById<EditText>(R.id.et_KeywordAgeMin).text.trim().toString()?:""
+            val inputAgeMin = findViewById<EditText>(R.id.et_KeywordAgeMin).text.toString()?:""
             val keywordAgeMin: Int
-            if (inputAgeMin.isEmpty()) {
+            if (inputAgeMin.isEmpty() || inputAgeMin == "") {
                 keywordAgeMin = -1
             }
             else {
                 keywordAgeMin = inputAgeMin.toInt()
             }
 
-            val inputAgeMax = findViewById<EditText>(R.id.et_KeywordAgeMax).text.trim().toString()?:""
+            val inputAgeMax = findViewById<EditText>(R.id.et_KeywordAgeMax).text.toString()?:""
             val keywordAgeMax: Int
-            if (inputAgeMin.isEmpty()) {
+            if (inputAgeMax.isEmpty() || inputAgeMax == "") {
                 keywordAgeMax = -1
             }
             else {
