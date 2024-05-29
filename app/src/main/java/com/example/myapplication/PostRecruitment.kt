@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -46,8 +47,8 @@ class PostRecruitment : AppCompatActivity() {
         }
 
         // 뒤로가기 버튼
-        val goBackBtn = findViewById<Button>(R.id.bt_GoBack1)
-        goBackBtn.setOnClickListener {
+        val goBack = findViewById<ImageView>(R.id.GoBack)
+        goBack.setOnClickListener {
             setResult(Activity.RESULT_OK)
             finish()
         }
