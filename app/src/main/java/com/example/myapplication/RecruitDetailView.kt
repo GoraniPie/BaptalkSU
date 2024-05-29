@@ -5,10 +5,7 @@ import android.util.Log
 import android.view.Window
 import android.widget.Button
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class RecruitDetailView : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +20,7 @@ class RecruitDetailView : AppCompatActivity() {
             }
         }
 
-        val btClosePopup = findViewById<Button>(R.id.bt_ClosePopup)
+        val btClosePopup = findViewById<Button>(R.id.ibt_ClosePopup)
         btClosePopup.setOnClickListener {
             Log.i("팝업버튼 닫기", "클릭확인됨")
             finish()

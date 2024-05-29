@@ -1,20 +1,14 @@
 package com.example.myapplication
 
 import android.app.Dialog
-import android.content.Intent
 import android.icu.util.Calendar
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -59,7 +53,7 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
             val keywordMBTI = dialog.findViewById<TextView>(R.id.tv_KeywordMBTI)
 
             // 닫기 버튼
-            val btClosePopup = dialog.findViewById<Button>(R.id.bt_ClosePopup)
+            val btClosePopup = dialog.findViewById<ImageButton>(R.id.ibt_ClosePopup)
             btClosePopup.setOnClickListener {
                 Log.i("팝업버튼 닫기", "클릭확인됨")
                 dialog.dismiss()

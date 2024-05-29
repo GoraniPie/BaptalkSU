@@ -6,8 +6,8 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <ImageButton
+        android:id="@+id/ibt_ClosePopup"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="right"
@@ -170,11 +170,4 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/bt_ClosePopup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="20dp"
-        android:text="." />
 </LinearLayout>

@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/p_imageButton"
+        android:id="@+id/ibt_ChangeProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -63,7 +63,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/p_textView2"
+                        android:id="@+id/tv_ProfileName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
@@ -72,7 +72,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/p_textView3"
+                        android:id="@+id/tv_ProfileStudentId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
@@ -82,7 +82,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/p_textView4"
+                        android:id="@+id/tv_ProfileEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
@@ -126,7 +126,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/p_textView7"
+                        android:id="@+id/tv_ProfileMajor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -145,7 +145,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/p_textView9"
+                        android:id="@+id/tv_ProfileAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -164,7 +164,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/p_textView11"
+                        android:id="@+id/tv_ProfileBirthday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -189,7 +189,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/p_textView13"
+                        android:id="@+id/tv_ProfileSex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -208,32 +208,13 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/p_textView15"
+                        android:id="@+id/tv_ProfileMBTI"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
-                        android:text="ISTJ"
                         android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/p_textView16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="전화번호"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/p_textView17"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="010-1111-1111"
-                        android:textSize="10sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -248,7 +229,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/p_textView19"
+                android:id="@+id/tv_ProfileStatusMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -256,7 +237,7 @@
                 android:textSize="10sp" />
 
             <Button
-                android:id="@+id/p_button"
+                android:id="@+id/bt_Logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

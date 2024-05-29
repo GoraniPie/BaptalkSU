@@ -19,15 +19,7 @@ import com.google.firebase.firestore.Query
 /*
 TODO: 모집글 페이지 조회 구현, 모집글 상세조회 구현, 모집글 검색 구현
  */
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Recruit.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Recruit : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var recruitAdapter: RecruitAdapter
@@ -39,6 +31,8 @@ class Recruit : Fragment() {
         arguments?.let {
 
         }
+
+        // 창 닫기 리스너
         postRecruitmentLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -78,7 +72,6 @@ class Recruit : Fragment() {
         // "작성하기" 버튼 클릭 리스너
         val btPostNew = view.findViewById<ImageButton>(R.id.ibt_PostNew)
         btPostNew.setOnClickListener {
-            //val intent = Intent(activity, PostRecruitment::class.java)
             val intent = Intent(activity, PostRecruitment::class.java)
             postRecruitmentLauncher.launch(intent)
         }
