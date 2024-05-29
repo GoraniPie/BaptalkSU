@@ -6,6 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageButton
+        android:id="@+id/ibt_CloseProfileModification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/baseline_gb_24"
+        android:text="뒤로가기"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/pm_textView"
         android:layout_width="wrap_content"
@@ -33,13 +44,14 @@
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pm_textView">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -61,9 +73,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/pm_textView2"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/et_NewName"
+                        android:layout_width="131dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
                         android:text="김철수"
@@ -71,7 +83,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/pm_textView3"
+                        android:id="@+id/tv_NewStudentId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
@@ -81,7 +93,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/pm_textView4"
+                        android:id="@+id/tv_NewEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
@@ -124,8 +136,8 @@
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/pm_editText"
+                    <Spinner
+                        android:id="@+id/sp_NewMajor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -143,12 +155,13 @@
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
-                    <Spinner
-                        android:id="@+id/pm_spinner"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/et_NewGrade"
+                        android:layout_width="62dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        android:inputType="number" />
 
                     <TextView
                         android:id="@+id/pm_textView8"
@@ -161,7 +174,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/pm_textView9"
+                        android:id="@+id/tv_NewBirthday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -186,6 +199,7 @@
                         android:textStyle="bold" />
 
                     <RadioGroup
+                        android:id="@+id/rdg_NewSex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20sp"
@@ -193,13 +207,13 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/pm_radioButton"
+                            android:id="@+id/rdb_NewMale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="남성" />
 
                         <RadioButton
-                            android:id="@+id/pm_radioButton2"
+                            android:id="@+id/rdb_NewFemale"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="여성" />
@@ -215,33 +229,15 @@
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/pm_editText2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <Spinner
+                        android:id="@+id/et_NewMBTI"
+                        android:layout_width="107dp"
+                        android:layout_height="38dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:text="ISTJ"
                         android:textSize="10sp" />
 
-                    <TextView
-                        android:id="@+id/pm_textView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="전화번호"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/pm_editText3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="010-1111-1111"
-                        android:textSize="10sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -256,7 +252,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/pm_editText4"
+                android:id="@+id/et_NewProfileMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -267,7 +263,7 @@
                 android:textSize="10sp" />
 
             <Button
-                android:id="@+id/pm_button"
+                android:id="@+id/bt_SetNewProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

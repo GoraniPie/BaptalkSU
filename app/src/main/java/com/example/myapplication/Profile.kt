@@ -29,8 +29,7 @@ class Profile : Fragment() {
         ) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 // 새로고침
-                val a = Profile()
-                a.loadProfile()
+                loadProfile()
             }
         }
     }
@@ -72,6 +71,8 @@ class Profile : Fragment() {
         val tvBirthday = view?.findViewById<TextView>(R.id.tv_ProfileBirthday)
         val tvSex = view?.findViewById<TextView>(R.id.tv_ProfileSex)
         val tvPofileMsg = view?.findViewById<TextView>(R.id.tv_ProfileStatusMessage)
+        val tvGrade = view?.findViewById<TextView>(R.id.tv_ProfileGrade)
+        val tvMBTI = view?.findViewById<TextView>(R.id.tv_ProfileMBTI)
 
         val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
@@ -88,6 +89,8 @@ class Profile : Fragment() {
                     tvStudentId?.text = document.getString("student_id")
                     tvMajor?.text = document.getString("major")
                     tvPofileMsg?.text = document.getString("profile_message")
+                    tvGrade?.text = document.getLong("grade").toString()
+                    tvMBTI?.text = document.getString("mbti")
 
                     val timestamp = document.getTimestamp("birthday")
                     if (timestamp != null) {
