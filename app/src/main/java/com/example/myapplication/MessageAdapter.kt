@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.DateFormat
 
 class MessageAdapter(private val messages: List<Message>) : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
@@ -40,9 +41,22 @@ class MessageAdapter(private val messages: List<Message>) : RecyclerView.Adapter
             holder.messageLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.light_skyblue))
         }
         else {
-
-            // TODO: UID말고, cloud firestore에 검색해서 계정정보의 이름으로 보이게 설정.
-            holder.messageSender.text = message.senderId
+            val firestore = FirebaseFirestore.getInstance()
+            val user = auth.currentUser
+            if (user != null) {
+                val userDocRef = firestore.collection("user").document(message.senderId)
+                userDocRef.get().addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        holder.messageSender.text = document.getString("name")
+                    }
+                    else {
+                        // 탈퇴한 사용자 (회원 정보 db에 없음)
+                        holder.messageSender.text = "탈퇴한 사용자"
+                    }
+                }.addOnFailureListener {
+                    holder.messageSender.text = "알 수 없음"
+                }
+            }
         }
         holder.messageTime.text = DateFormat.getDateTimeInstance().format(message.timestamp)
     }
