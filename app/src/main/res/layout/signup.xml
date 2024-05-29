@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".LogIn">
 
-    <Button
+    <ImageButton
         android:id="@+id/bt_GoBack"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
+        android:background="@drawable/baseline_gb_24"
         android:text="뒤로"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,10 +21,11 @@
     <TextView
         android:id="@+id/tv_EmailAddress"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="회원가입"
         android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,11 +33,11 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/bt_GoBack"
-        app:layout_constraintBottom_toTopOf="@id/bt_Submit"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tv_EmailAddress">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,10 +56,10 @@
                 android:id="@+id/et_InputEmail"
                 android:layout_width="203dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:text="intelpieservice@syuin.ac.kr"
-                android:layout_marginTop="8dp" />
+                android:text="intelpieservice@syuin.ac.kr" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -70,10 +72,10 @@
                 android:id="@+id/et_InputPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:text="asdf1234!@"
-                android:layout_marginTop="8dp" />
+                android:text="asdf1234!@" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -86,10 +88,10 @@
                 android:id="@+id/et_StudentID"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="number"
-                android:text="2022123456"
-                android:layout_marginTop="8dp" />
+                android:text="2022123456" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -115,9 +117,9 @@
                 android:id="@+id/tv_DatePicker"
                 android:layout_width="211dp"
                 android:layout_height="34dp"
+                android:layout_marginTop="8dp"
                 android:text="날짜"
-                android:textSize="20sp"
-                android:layout_marginTop="8dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -130,8 +132,8 @@
                 android:id="@+id/rdb_Group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rdb_Male"
@@ -148,19 +150,18 @@
 
             </RadioGroup>
 
+            <Button
+                android:id="@+id/bt_Submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#0000FF"
+                android:gravity="center"
+                android:text="회원가입" />
+
         </LinearLayout>
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/bt_Submit"
-        android:layout_width="198dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginEnd="160dp"
-        android:text="회원가입"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

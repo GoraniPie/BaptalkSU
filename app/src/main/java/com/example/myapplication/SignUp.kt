@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
@@ -93,7 +94,7 @@ class SignUp : AppCompatActivity() {
         }
 
         // 창 뒤로가기
-        val bt_GoBack = findViewById<TextView>(R.id.bt_GoBack)
+        val bt_GoBack = findViewById<ImageButton>(R.id.bt_GoBack)
         bt_GoBack.setOnClickListener {
             finish()
         }
