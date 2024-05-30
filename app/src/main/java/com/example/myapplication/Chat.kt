@@ -55,7 +55,7 @@ class Chat : Fragment() {
                 for (data in snapshot.children) {
                     val chatRoom = data.getValue(ChatRoom::class.java)
                     if (chatRoom != null && chatRoom.users.containsKey(currentUser.uid)) {
-                        chatRooms.add(chatRoom)
+                        if (chatRoom.users[currentUser.uid] == true)chatRooms.add(chatRoom)
                     }
                 }
                 chatRoomAdapter.notifyDataSetChanged()

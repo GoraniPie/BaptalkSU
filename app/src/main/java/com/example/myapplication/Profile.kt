@@ -53,6 +53,7 @@ class Profile : Fragment() {
         // 프로필 수정 페이지로 이동
         val btChangeProfile = view.findViewById<ImageButton>(R.id.ibt_ChangeProfile)
         btChangeProfile.setOnClickListener {
+            Log.i("프로필 수정 버튼 클릭됨", "ㅇㅇㅇㅇㅇㅇㅇㅇㅇ")
             val intent = Intent(context, ProfileChange::class.java)
             changeProfileLauncher.launch(intent)
         }
