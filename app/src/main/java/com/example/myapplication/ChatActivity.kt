@@ -49,9 +49,17 @@ class ChatActivity : AppCompatActivity() {
         database.child("chatRooms").child(roomId).child("roomName").get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val roomName = task.result.getValue(String::class.java)
-                    tvChatTitle.text = roomName
-                } else {
+                    Log.i("가져오기 성공", "예쓰")
+                    Log.i("task 값", task.result.toString())
+                    val roomName = task.result?.getValue(String::class.java)
+                    if (roomName != null && roomName.isNotEmpty()) {
+                        tvChatTitle.text = roomName
+                    }
+                    else {
+                        tvChatTitle.text = "채팅방"
+                    }
+                }
+                else {
                     tvChatTitle.text = "채팅방"
                 }
             }

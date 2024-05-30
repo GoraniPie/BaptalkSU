@@ -327,13 +327,6 @@ class PostRecruitment : AppCompatActivity() {
         }
 
         val roomId: String = recruitmentData["post_id"] as String
-        database.child("chatRooms").setValue(roomId)
-        /*
-        if (roomId == null) {
-            Toast.makeText(this, "Failed to create chat room", Toast.LENGTH_SHORT).show()
-            return
-        }
-         */
 
         val users = mapOf(currentUser.uid to true)
         val chatRoom = ChatRoom(
