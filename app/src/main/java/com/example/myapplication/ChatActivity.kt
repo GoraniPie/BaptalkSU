@@ -43,7 +43,7 @@ class ChatActivity : AppCompatActivity() {
         recyclerView.adapter = messageAdapter
 
         val roomId = intent.getStringExtra("roomId") ?: return
-        database = FirebaseDatabase.getInstance().reference.child("messages").child(roomId)
+        database = FirebaseDatabase.getInstance().reference
 
         // 채팅방 제목 설정
         database.child("chatRooms").child(roomId).child("roomName").get()
@@ -65,7 +65,7 @@ class ChatActivity : AppCompatActivity() {
             }
 
         // 메시지 전송하면 채팅 새로고침
-        database.addValueEventListener(object : ValueEventListener {
+        database.child("messages").child(roomId).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Log.i("addValueEvent, onDataChange 발동됨", "ㅇㅇㅇㅇ")
                 messages.clear()
@@ -87,14 +87,14 @@ class ChatActivity : AppCompatActivity() {
         buttonSend.setOnClickListener {
             val messageText = editTextMessage.text.toString().trim()
             if (messageText.isNotEmpty()) {
-                val messageId = database.push().key ?: return@setOnClickListener
+                val messageId = database.child("messages").child(roomId).push().key ?: return@setOnClickListener
                 val message = Message(
                     messageId = messageId,
                     senderId = FirebaseAuth.getInstance().currentUser?.uid ?: "Anonymous",
                     message = messageText,
                     timestamp = System.currentTimeMillis()
                 )
-                database.child(messageId).setValue(message)
+                database.child("messages").child(roomId).child(messageId).setValue(message)
                 editTextMessage.text.clear()
             }
         }
