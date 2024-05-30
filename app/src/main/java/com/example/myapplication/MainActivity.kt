@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import android.app.PendingIntent
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myapplication.databinding.RecruitBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +25,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = RecruitBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+        // FCM 파이어베이스 알림설정
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Save token to database
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            if (currentUser != null && token != null) {
+                val database = FirebaseDatabase.getInstance().reference
+                database.child("users").child(currentUser.uid).child("fcmToken").setValue(token)
+            }
+        }
 
         // 설정버튼 연결
         val btSettings: ImageButton = findViewById<ImageButton>(R.id.ibt_Settings)

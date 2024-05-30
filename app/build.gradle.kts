@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.messaging.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -57,6 +58,8 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-installations:18.0.0")
+
 
     // 욕설 필터링 오픈소스
     // https://github.com/VaneProject/bad-word-filtering?tab=readme-ov-file
