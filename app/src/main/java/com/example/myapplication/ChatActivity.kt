@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,7 +32,7 @@ class ChatActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.rcv_ChatMessages)
         val editTextMessage: EditText = findViewById(R.id.et_TextMessage)
-        val buttonSend: Button = findViewById(R.id.bt_SendMeesage)
+        val buttonSend: ImageView = findViewById(R.id.img_SendMessage)
 
         val tvChatTitle = findViewById<TextView>(R.id.tv_ChatRoomTitle)
 
@@ -91,8 +92,8 @@ class ChatActivity : AppCompatActivity() {
         }
 
         // 채팅방 닫기
-        val btCloseChat = findViewById<Button>(R.id.bt_CloseChat)
-        btCloseChat.setOnClickListener {
+        val closeChat = findViewById<ImageView>(R.id.img_Closechat)
+        closeChat.setOnClickListener {
             finish()
         }
     }
