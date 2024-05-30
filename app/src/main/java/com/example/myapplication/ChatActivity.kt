@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +36,10 @@ class ChatActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.rcv_ChatMessages)
         val editTextMessage: EditText = findViewById(R.id.et_TextMessage)
         val buttonSend: ImageView = findViewById(R.id.img_SendMessage)
+        val buttonExitChat: ImageButton = findViewById(R.id.ibt_ExitChat)
 
         val tvChatTitle = findViewById<TextView>(R.id.tv_ChatRoomTitle)
+        val auth = FirebaseAuth.getInstance()
 
         firestore = FirebaseFirestore.getInstance()
 
@@ -90,7 +95,7 @@ class ChatActivity : AppCompatActivity() {
                 val messageId = database.child("messages").child(roomId).push().key ?: return@setOnClickListener
                 val message = Message(
                     messageId = messageId,
-                    senderId = FirebaseAuth.getInstance().currentUser?.uid ?: "Anonymous",
+                    senderId = auth.currentUser?.uid ?: "Anonymous",
                     message = messageText,
                     timestamp = System.currentTimeMillis()
                 )
@@ -108,5 +113,47 @@ class ChatActivity : AppCompatActivity() {
         closeChat.setOnClickListener {
             finish()
         }
+
+        buttonExitChat.setOnClickListener {
+            // TODO: 나가시겠습니까? yes no
+            val dialogBuilder = AlertDialog.Builder(this)
+            dialogBuilder.setTitle("채팅방 나가기")
+            dialogBuilder.setMessage("채팅방을 나가시겠습니까?")
+            dialogBuilder.setNegativeButton("닫기") { dialog, which ->
+                dialog.dismiss()
+            }
+            dialogBuilder.setPositiveButton("나가기") { dialog, which ->
+                database.child("chatRooms").child(roomId).child("creatorId").get().addOnCompleteListener { task->
+                    if (task.isSuccessful) {
+                        Log.i("creatorId", task.result.toString())
+                        // 채팅방 생성자(=모집글 작성자)가 나가면 방 파괴
+                        if (task.result.value == auth.currentUser?.uid) {
+                            database.child("chatRooms").child(roomId).removeValue()
+                                .addOnCompleteListener {
+                                    firestore.collection("recruitment").document(roomId).delete()
+                                        .addOnCompleteListener {
+                                            finish()
+                                        }
+                                }.addOnFailureListener {
+                                    Toast.makeText(this, "채팅방 나가기 실패", Toast.LENGTH_LONG).show()
+                                }
+                        }
+                        else {
+                            database.child("chatRooms").child(roomId).child("users").child(auth.currentUser?.uid?:"")
+                                .setValue(false).addOnCompleteListener {
+                                    finish()
+                                }.addOnFailureListener {
+                                    Toast.makeText(this, "채팅방 나가기 실패", Toast.LENGTH_LONG).show()
+                                }
+                        }
+                    }
+                }
+            }
+            dialogBuilder.create().show()
+
+
+
+        }
+
     }
 }
