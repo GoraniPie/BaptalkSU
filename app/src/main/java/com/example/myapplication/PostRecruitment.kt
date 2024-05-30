@@ -332,6 +332,7 @@ class PostRecruitment : AppCompatActivity() {
         val chatRoom = ChatRoom(
             roomId = roomId,
             roomName = recruitmentData["title"].toString(),
+            creatorId = currentUser.uid,
             lastMessage = "",
             lastMessageSender = "",
             lastMessageTime = System.currentTimeMillis(),

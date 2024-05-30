@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.DateFormat
 import java.util.Date
 
@@ -34,7 +36,19 @@ class ChatRoomAdapter(
         val chatRoom = chatRooms[position]
         holder.roomName.text = chatRoom.roomName
         holder.lastMessage.text = chatRoom.lastMessage
-        holder.lastMessageSender.text = chatRoom.lastMessageSender
+
+        val database = FirebaseFirestore.getInstance()
+        if (chatRoom.lastMessageSender != "") {
+            val userDocRef = database.collection("user").document(chatRoom.lastMessageSender)
+            Log.i("userDocRef까진 괜찮음", "ㅇㅇ")
+            userDocRef.get().addOnSuccessListener { document ->
+                Log.i("db 가져오기 성공", "ㅇㅇ")
+                holder.lastMessageSender.text = document.getString("name")
+            }
+        }
+
+
+
         holder.lastMessageTime.text = DateFormat.getDateTimeInstance().format(Date(chatRoom.lastMessageTime))
 
         holder.itemView.setOnClickListener {

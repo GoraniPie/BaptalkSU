@@ -96,6 +96,10 @@ class ChatActivity : AppCompatActivity() {
                 )
                 database.child("messages").child(roomId).child(messageId).setValue(message)
                 editTextMessage.text.clear()
+                // 마지막 메시지
+                database.child("chatRooms").child(roomId).child("lastMessage").setValue(message.message)
+                database.child("chatRooms").child(roomId).child("lastMessageSender").setValue(message.senderId)
+                database.child("chatRooms").child(roomId).child("lastMessageTime").setValue(message.timestamp)
             }
         }
 
