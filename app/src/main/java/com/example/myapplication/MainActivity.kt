@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -37,15 +38,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        replaceFragment(Recruit())
+        replaceFragment(Recruit(), "모집")
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             Log.i("nav bar", "item changed")
             when (it.itemId) {
-                R.id.recruit -> replaceFragment(Recruit())
-                R.id.map -> replaceFragment(Map())
-                R.id.profile -> replaceFragment(Profile())
-                R.id.chat -> replaceFragment(Chat())
+                R.id.recruit -> replaceFragment(Recruit(), "모집")
+                R.id.map -> replaceFragment(Map(), "지도")
+                R.id.profile -> replaceFragment(Profile(), "프로필")
+                R.id.chat -> replaceFragment(Chat(), "대화방")
             }
             true
         }
@@ -54,11 +55,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun replaceFragment(fragment : Fragment){
+    private fun replaceFragment(fragment : Fragment, newText: String){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout,fragment)
         fragmentTransaction.commit()
+
+        // 텍스트 뷰의 텍스트 변경
+        val textView = findViewById<TextView>(R.id.Title)
+        textView.text = newText
     }
     fun launchPostRecruitment() {
         val intent = Intent(this, PostRecruitment::class.java)
