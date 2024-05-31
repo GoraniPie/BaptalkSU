@@ -48,21 +48,9 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
         var uploaderName: String = ""
         var uploaderAge: Long = -1
         var uploaderMajor: String = ""
-        var recruitContent: String = ""
-        var keywordMBTI: String = ""
-        var keywordAgeMin: Long = -1
-        var keywordAgeMax: Long = -1
-        var keywordSex: String = ""
-
-
 
         // db에서 데이터 긁어오기
         firestore.collection("user").document(recruit.uploader_id).get().addOnSuccessListener {document->
-            keywordMBTI = document.getString("keyword_mbti")?: ""
-            keywordSex = document.getString("keyword_sex")?: ""
-            keywordAgeMax = document.getLong("keyword_age_max")?:-1
-            keywordAgeMin = document.getLong("keyword_age_min")?:-1
-
             val birthday = document.getTimestamp("birthday")?.toDate()
             val date: Date? = birthday
             val calendar: Calendar = Calendar.getInstance()
@@ -141,22 +129,21 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
             if (recruit.keyword_major == "") {
                 tv_keywordMajor.text = "학과 제한 없음"
             } else {
-                tv_keywordMajor.text = "#" + recruit.keyword_major + " 만"
+                tv_keywordMajor.text = recruit.keyword_major
             }
-
             // 나이 제한
-            if (keywordAgeMax.toInt() == -1) {
-                if (keywordAgeMin.toInt() == -1) {
+            if (recruit.keyword_age_max == -1) {
+                if (recruit.keyword_age_min == -1) {
                     tv_keywordAge.text = "나이 제한 없음"
                 } else {
-                    tv_keywordAge.text = "$keywordAgeMin ~ 세만"
+                    tv_keywordAge.text = "${recruit.keyword_age_min} ~ 세만"
                 }
             }
             else {
-                if (keywordAgeMin.toInt() == -1) {
-                    tv_keywordAge.text = "~ ${keywordAgeMax}세만"
+                if (recruit.keyword_age_min == -1) {
+                    tv_keywordAge.text = "~ ${recruit.keyword_age_max}세만"
                 } else {
-                    tv_keywordAge.text = "$keywordAgeMin ~ ${keywordAgeMax}세만"
+                    tv_keywordAge.text = "${recruit.keyword_age_min} ~ ${recruit.keyword_age_max}세만"
                 }
             }
 

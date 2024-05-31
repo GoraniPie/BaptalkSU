@@ -100,6 +100,8 @@
         android:id="@+id/tv_Age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingTop="3dp"
         android:paddingBottom="10dp"
         android:text="나이 : 24(만22)"
         android:textSize="16sp" />
@@ -152,7 +154,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="#01년생"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_KeywordMBTI"
@@ -166,7 +168,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="#INFJ"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -183,10 +185,12 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_corner"
+                android:ellipsize="none"
                 android:gravity="center"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:text="#공대"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_KeywordSex"
@@ -200,7 +204,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="#남자"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
 
