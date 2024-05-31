@@ -92,13 +92,17 @@ class Recruit : Fragment() {
             }
         }
 
+
+        // 검색하기
         val search = view.findViewById<SearchView>(R.id.sv_SearchBox)
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
-
+                    searchRecruitData(query)
+                } else {
+                    loadRecruitData()
                 }
-                return true  // true를 반환하여 이벤트를 소비합니다.
+                return true
             }
             override fun onQueryTextChange(newText: String?): Boolean {
                 return true
@@ -109,7 +113,23 @@ class Recruit : Fragment() {
         loadRecruitData()
 
     }
-
+    private fun searchRecruitData(query: String) {
+        firestore.collection("recruitment")
+            .orderBy("created_at", Query.Direction.DESCENDING)
+            .limit(50)  // Increase limit if necessary to ensure enough results
+            .get()
+            .addOnSuccessListener { documents ->
+                val recruitList = documents.toObjects(RecruitDataModel::class.java)
+                    .filter { document ->
+                        val titleContent = (document.title + " " + document.place + " " + document.content).lowercase()
+                        query.lowercase() in titleContent
+                    }
+                recruitAdapter.updateList(recruitList)
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Recruit", "Error getting documents: ", exception)
+            }
+    }
     fun refreshRecyclerView() {
         loadRecruitData()
     }

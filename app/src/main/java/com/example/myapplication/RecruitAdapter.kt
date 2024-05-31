@@ -122,7 +122,7 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
             if (recruit.keyword_sex == "") {
                 tv_keywordSex.text = "성별 제한 없음"
             } else {
-                tv_keywordSex.text = "#" + recruit.keyword_sex + " 만"
+                tv_keywordSex.text = "#" + recruit.keyword_sex + "만"
             }
 
             // 확과 설정

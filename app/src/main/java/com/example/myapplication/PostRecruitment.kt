@@ -285,6 +285,7 @@ class PostRecruitment : AppCompatActivity() {
                     "title" to title,
                     "uploader_id" to user?.uid,
                     "content" to content,
+                    "title_content" to ("$title $place $content").lowercase()
                 )
                 db.collection("recruitment").document(postID)
                     .set(recruitmentData)
