@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.SearchView
 import android.widget.Switch
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -90,6 +91,19 @@ class Recruit : Fragment() {
                 loadRecruitData()
             }
         }
+
+        val search = view.findViewById<SearchView>(R.id.sv_SearchBox)
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+
+                }
+                return true  // true를 반환하여 이벤트를 소비합니다.
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
 
         // Firestore에서 데이터 가져오기
         loadRecruitData()

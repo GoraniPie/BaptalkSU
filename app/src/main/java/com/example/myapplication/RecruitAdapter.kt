@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import org.w3c.dom.Text
 import java.util.Date
 
@@ -140,7 +141,7 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
             if (recruit.keyword_major == "") {
                 tv_keywordMajor.text = "학과 제한 없음"
             } else {
-                tv_keywordMajor.text = "#" + recruit.keyword_sex + " 만"
+                tv_keywordMajor.text = "#" + recruit.keyword_major + " 만"
             }
 
             // 나이 제한
@@ -194,24 +195,52 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
                             popUpDialog(context, "이미 꽉 찬 모집입니다.")
                         }
                         else {
-                            database.child("chatRooms").child(recruit.post_id).child("users").child(currentUser.uid).setValue(true)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        Log.i("채팅방 참여 성공", "ㅇㅇ")
-                                        val firestore = FirebaseFirestore.getInstance()
-                                        val chatRoomData = firestore.collection("recruitment").document(recruit.post_id)
-                                        chatRoomData.get().addOnSuccessListener { document ->
-                                            val headcountCurrent = document.getLong("headcount_current") ?: 0
-                                            // 현재 인원 업데이트
-                                            val update = hashMapOf<String, Any>(
-                                                "headcount_current" to (headcountCurrent + 1),
-                                            )
-                                            firestore.collection("recruitment").document(recruit.post_id).update(update)
-                                        }
-                                    } else {
-                                        popUpDialog(context, "참여에 실패했습니다.")
-                                    }
+                            // 키워드 검사
+                            val auth = FirebaseAuth.getInstance()
+                            val user = auth.currentUser
+                            var userAge: Long = -1
+                            var userMajor: String = ""
+                            var userSex: String = ""
+                            if (user != null) {
+                                firestore.collection("user").document(user.uid).get().addOnSuccessListener {document->
+                                    userAge = document.getLong("age")?:-1
+                                    userMajor = document.getString("major")?:""
+                                    userSex = document.getString("sex")?:""
                                 }
+                            }
+                            if (user != null) {
+                                if (
+                                    !((document.getString("uploader_id") == (user.uid ?:""))
+                                            ||
+                                            ((document.getLong("keyword_age_max")?.toInt() == -1 || document.getLong("keyword_age_max")!! >= userAge)
+                                                    && (document.getLong("keyword_age_min")?.toInt() == -1 || document.getLong("keyword_age_min")!! <= userAge)
+                                                    && (document.getString("keyword_sex") == "" || document.getString("keyword_sex") == userSex)
+                                                    && (document.getString("keyword_major") == "" || document.getString("keyword_major") == userMajor)))
+                                ) {
+                                    popUpDialog(context, "참가할 수 없는 모집입니다.")
+                                }
+                                else {
+                                    database.child("chatRooms").child(recruit.post_id).child("users").child(currentUser.uid).setValue(true)
+                                        .addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                Log.i("채팅방 참여 성공", "ㅇㅇ")
+                                                val firestore = FirebaseFirestore.getInstance()
+                                                val chatRoomData = firestore.collection("recruitment").document(recruit.post_id)
+                                                chatRoomData.get().addOnSuccessListener { document ->
+                                                    val headcountCurrent = document.getLong("headcount_current") ?: 0
+                                                    // 현재 인원 업데이트
+                                                    val update = hashMapOf<String, Any>(
+                                                        "headcount_current" to (headcountCurrent + 1),
+                                                    )
+                                                    firestore.collection("recruitment").document(recruit.post_id).update(update)
+                                                }
+                                            } else {
+                                                popUpDialog(context, "참여에 실패했습니다.")
+                                            }
+                                        }
+                                }
+                            }
+
                         }
                     }.addOnFailureListener {                        // 채팅방의 사용자 목록에 현재 사용자 추가
                         database.child("chatRooms").child(recruit.post_id).child("users").child(currentUser.uid).setValue(true)

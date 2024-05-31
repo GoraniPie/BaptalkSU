@@ -64,11 +64,12 @@
     <SearchView
         android:id="@+id/sv_SearchBox"
         android:layout_width="0dp"
-        android:layout_height="49dp"
+        android:layout_height="50dp"
         android:background="#EAE1E1"
-        android:layoutDirection="rtl"
-        app:layout_constraintEnd_toStartOf="@+id/switch_Filter"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="1dp" />
+        android:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/switch_Filter"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

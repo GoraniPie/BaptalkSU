@@ -38,7 +38,7 @@ class Settings : AppCompatActivity() {
         val editText = EditText(this)
         editText.hint = "탈퇴하겠습니다."
 
-        dialogBuilder.setTitle("최종 확인")
+        dialogBuilder.setTitle("탈퇴하시겠습니까?")
         dialogBuilder.setMessage("탈퇴하려면 \"탈퇴하겠습니다.\"를 입력하세요.")
         dialogBuilder.setView(editText)
 
