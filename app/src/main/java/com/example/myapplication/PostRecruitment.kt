@@ -122,6 +122,31 @@ class PostRecruitment : AppCompatActivity() {
         )
         placeTextView.setAdapter(autocompadapter)
 
+        // 최대 인원
+        val maxHeadcount = findViewById<Spinner>(R.id.sp_MaxHeadcount)
+        var headcount_max: String = "2"
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.headcount_max,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // 드롭다운 설정
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // 어댑터를 스피너에 연결
+            maxHeadcount.adapter = adapter
+        }
+        maxHeadcount.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            // 선택 학과에 저장
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                headcount_max = parent.getItemAtPosition(position) as String
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                headcount_max = "2"
+            }
+        }
+
+
         // 전공 키워드
         val spinnerDepartments: Spinner = findViewById(R.id.sp_KeywordMajor)
         ArrayAdapter.createFromResource(
@@ -274,7 +299,7 @@ class PostRecruitment : AppCompatActivity() {
                     "created_at" to currentTimestamp,
                     "modified_at" to currentTimestamp,
                     "headcount_current" to 1,
-                    "headcount_max" to 2,
+                    "headcount_max" to headcount_max.toInt(),
                     "keyword_age_min" to keywordAgeMin,
                     "keyword_age_max" to keywordAgeMax,
                     "keyword_major" to keywordMajor,

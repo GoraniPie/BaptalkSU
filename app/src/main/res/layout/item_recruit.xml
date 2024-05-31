@@ -20,7 +20,9 @@
             android:id="@+id/recruitUploader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="2"
             android:text="모집자"
             android:textSize="8sp" />
     </LinearLayout>
@@ -35,6 +37,7 @@
             android:id="@+id/recruitTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:text="Title"
             android:textSize="16sp"
             android:textStyle="bold" />

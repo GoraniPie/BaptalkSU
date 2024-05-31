@@ -8,9 +8,12 @@
 
     <TextView
         android:id="@+id/tv_ChatRoomTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
         android:layout_marginTop="15dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
         android:text="상대이름"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,6 +30,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="text"
+        android:maxLength="500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/img_SendMessage"
         app:layout_constraintStart_toStartOf="parent" />
@@ -39,7 +43,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/baseline_north_24" />
+        app:srcCompat="@drawable/baseline_arrow_forward_24" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -67,16 +71,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_arrow_back_24" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/ibt_ExitChat"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_circle_notifications_24" />
 
     <ImageButton
         android:id="@+id/ibt_ExitChat"
