@@ -149,7 +149,6 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_corner"
-                android:elevation="3dp"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="#01년생"

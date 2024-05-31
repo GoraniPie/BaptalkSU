@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.icu.util.Calendar
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +12,14 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 import java.util.Date
@@ -126,18 +131,19 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
 
             // 성별 태그
             if (recruit.keyword_sex == "") {
-                tv_keywordSex.text = "#성별 제한 없음"
+                tv_keywordSex.text = "성별 제한 없음"
             } else {
                 tv_keywordSex.text = "#" + recruit.keyword_sex + " 만"
             }
 
             // 확과 설정
             if (recruit.keyword_major == "") {
-                tv_keywordSex.text = "학과 제한 없음"
+                tv_keywordMajor.text = "학과 제한 없음"
             } else {
-                tv_keywordSex.text = "#" + recruit.keyword_sex + " 만"
+                tv_keywordMajor.text = "#" + recruit.keyword_sex + " 만"
             }
 
+            // 나이 제한
             if (keywordAgeMax.toInt() == -1) {
                 if (keywordAgeMin.toInt() == -1) {
                     tv_keywordAge.text = "나이 제한 없음"
@@ -172,10 +178,42 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
                 firestore.collection("recruitment").document(recruit.post_id).get().addOnSuccessListener { document ->
                     val currentHeadcount = document.getLong("headcount_current") ?: 0
                     val maxHeadcount = document.getLong("headcount_max") ?: 0
-                    if (currentHeadcount >= maxHeadcount) {
-                        popUpDialog(context, "이미 꽉 찬 모집입니다.")
-                    } else {
-                        // 채팅방의 사용자 목록에 현재 사용자 추가
+
+                    val databaseReference = FirebaseDatabase.getInstance().reference
+
+                    val chatRoomRef = databaseReference.child("chatRooms").child(recruit.post_id).child("users").child(currentUser.uid)
+                    var isRegistered: Boolean? = false
+
+                    chatRoomRef.get().addOnSuccessListener {
+                        // 이미 참가중인가 체크
+                        if (it.getValue(Boolean::class.java) == true) {
+                            popUpDialog(context, "이미 참가한 모집입니다.")
+                        }
+                        // 꽉 찬 모집인가 체크
+                        else if (currentHeadcount >= maxHeadcount) {
+                            popUpDialog(context, "이미 꽉 찬 모집입니다.")
+                        }
+                        else {
+                            database.child("chatRooms").child(recruit.post_id).child("users").child(currentUser.uid).setValue(true)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        Log.i("채팅방 참여 성공", "ㅇㅇ")
+                                        val firestore = FirebaseFirestore.getInstance()
+                                        val chatRoomData = firestore.collection("recruitment").document(recruit.post_id)
+                                        chatRoomData.get().addOnSuccessListener { document ->
+                                            val headcountCurrent = document.getLong("headcount_current") ?: 0
+                                            // 현재 인원 업데이트
+                                            val update = hashMapOf<String, Any>(
+                                                "headcount_current" to (headcountCurrent + 1),
+                                            )
+                                            firestore.collection("recruitment").document(recruit.post_id).update(update)
+                                        }
+                                    } else {
+                                        popUpDialog(context, "참여에 실패했습니다.")
+                                    }
+                                }
+                        }
+                    }.addOnFailureListener {                        // 채팅방의 사용자 목록에 현재 사용자 추가
                         database.child("chatRooms").child(recruit.post_id).child("users").child(currentUser.uid).setValue(true)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
