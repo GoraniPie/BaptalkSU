@@ -1,18 +1,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
-    android:layout_height="450dp"
-    android:background="#D0EFFA"
+    android:layout_height="480dp"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     android:padding="20dp">
 
-    <ImageButton
-        android:id="@+id/ibt_ClosePopup"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="right"
-        android:background="#F16565"
-        app:srcCompat="@drawable/baseline_gb_24" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_Title"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:paddingBottom="10dp"
+            android:text=" 밥 한끼 같이해요"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/ibt_ClosePopup"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="#FFFFFF"
+            app:srcCompat="@drawable/baseline_gb_24" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,13 +43,14 @@
             app:srcCompat="@drawable/baseline_account_circle_24" />
 
         <TextView
-            android:id="@+id/tv_Title"
+            android:id="@+id/tv_Name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             android:paddingBottom="10dp"
-            android:text=" 밥 한끼 같이해요"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:text="이름 : 김수진"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -80,14 +97,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_Name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="이름 : 김수진"
-        android:textSize="16sp" />
-
-    <TextView
         android:id="@+id/tv_Age"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -109,65 +118,102 @@
             android:text="학과 : 컴퓨터공학과"
             android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/bt_EnterRecruit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="#37B33D"
-            android:text="입장" />
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_Content"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:ellipsize="end"
+        android:text="내용" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="103dp"
         android:layout_gravity="right"
-        android:layout_marginTop="20dp"
-        android:background="#D0EFFA"
+        android:layout_marginTop="8dp"
+        android:background="#FFFFFF"
         android:orientation="horizontal"
         android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tv_KeywordAge"
+        <LinearLayout
+            android:layout_width="142dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_KeywordAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner"
+                android:elevation="3dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="#01년생"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_KeywordMBTI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="#INFJ"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/rounded_corner"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="#01년생"
-            android:textSize="16sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_KeywordMajor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="#공대"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_KeywordSex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_corner"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="#남자"
+                android:textSize="16sp" />
+        </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/tv_KeywordMBTI"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_corner"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="#INFJ"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_KeywordMajor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_corner"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="#공대"
-            android:textSize="16sp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_EnterRecruit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#0088FF"
+        android:text="입장" />
 
 </LinearLayout>

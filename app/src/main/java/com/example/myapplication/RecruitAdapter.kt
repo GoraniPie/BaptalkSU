@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import org.w3c.dom.Text
+import java.util.Date
 
 class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private val context: Context) :
     RecyclerView.Adapter<RecruitAdapter.RecruitViewHolder>() {
@@ -37,13 +39,38 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
         val recruit = recruitList[position]
         val firestore = FirebaseFirestore.getInstance()
         // 리스트에 유저 이름 표시
-        val uploaderName = firestore.collection("user").document(recruit.uploader_id).get().addOnSuccessListener {document->
-            holder.uploader.text = document.getString("name")
+        var uploaderName: String = ""
+        var uploaderAge: Long = -1
+        var uploaderMajor: String = ""
+        var recruitContent: String = ""
+        var keywordMBTI: String = ""
+        var keywordAgeMin: Long = -1
+        var keywordAgeMax: Long = -1
+        var keywordSex: String = ""
+
+        // db에서 데이터 긁어오기
+        firestore.collection("user").document(recruit.uploader_id).get().addOnSuccessListener {document->
+            keywordMBTI = document.getString("keyword_mbti")?: ""
+            keywordSex = document.getString("keyword_sex")?: ""
+            keywordAgeMax = document.getLong("keyword_age_max")?:-1
+            keywordAgeMin = document.getLong("keyword_age_min")?:-1
+
+            val birthday = document.getTimestamp("birthday")?.toDate()
+            val date: Date? = birthday
+            val calendar: Calendar = Calendar.getInstance()
+            val currentYear = calendar.get(Calendar.YEAR)
+            calendar.time = date
+            val userBirthYear = calendar.get(Calendar.YEAR)
+
+            uploaderAge = (currentYear - userBirthYear).toLong()
+            uploaderMajor = document.getString("major")?:""
+
+            uploaderName = document.getString("name")?:"알 수 없음"
+            holder.uploader.text = uploaderName
+
         }.addOnFailureListener {
             holder.uploader.text = "탈퇴한 사용자"
         }
-
-
 
         // 제목, 인원, 식사장소 표시
         holder.title.text = "${recruit.title} (${recruit.headcount_current} / ${recruit.headcount_max})"
@@ -64,9 +91,14 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
             val titleTextView = dialog.findViewById<TextView>(R.id.tv_Title)
             val placeTextView = dialog.findViewById<TextView>(R.id.tv_Place)
             val baptimeTextView = dialog.findViewById<TextView>(R.id.tv_Time)
-            val keywordMajor = dialog.findViewById<TextView>(R.id.tv_KeywordMajor)
-            // val keywordSex = dialog.findViewById<TextView>(R.id.tv_KeywordSex)
-            val keywordMBTI = dialog.findViewById<TextView>(R.id.tv_KeywordMBTI)
+            val tv_Age = dialog.findViewById<TextView>(R.id.tv_Age)
+            val tv_Content = dialog.findViewById<TextView>(R.id.tv_Content)
+
+            val tv_keywordMajor = dialog.findViewById<TextView>(R.id.tv_KeywordMajor)
+            val tv_keywordSex = dialog.findViewById<TextView>(R.id.tv_KeywordSex)
+            val tv_keywordMBTI = dialog.findViewById<TextView>(R.id.tv_KeywordMBTI)
+            val tv_keywordAge = dialog.findViewById<TextView>(R.id.tv_KeywordAge)
+            val tv_uploaderName = dialog.findViewById<TextView>(R.id.tv_Name)
 
             // 닫기 버튼
             val btClosePopup = dialog.findViewById<ImageButton>(R.id.ibt_ClosePopup)
@@ -75,10 +107,49 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
                 dialog.dismiss()
             }
 
-            // 아이템 데이터를 설정
+            // 아이템 데이터 설정
             titleTextView.text = recruit.title
             placeTextView.text = "식사 장소 : ${recruit.place}"
             baptimeTextView.text = "식사 시간 : ${hour}시 ${minute}분"
+            tv_uploaderName.text = "모집자 : " + uploaderName
+            tv_Age.text = "모집자 나이 : ${uploaderAge}세"
+
+
+            //mbti 태그
+            if (recruit.keyword_mbti == "") {
+                tv_keywordMBTI.text  = "#MBTI 비공개"
+            } else {
+                tv_keywordMBTI.text  = "#" + recruit.keyword_mbti
+            }
+
+
+            if (recruit.keyword_sex == "") {
+                tv_keywordSex.text = "#성별제한 없음"
+            } else {
+                tv_keywordSex.text = "#" + recruit.keyword_sex + " 만"
+            }
+
+            // 확과 설정
+            tv_keywordMajor.text = "#" + recruit.keyword_major
+
+            if (keywordAgeMax.toInt() == -1) {
+                if (keywordAgeMin.toInt() == -1) {
+                    tv_keywordAge.text = "나이제한 없음"
+                } else {
+                    tv_keywordAge.text = "$keywordAgeMin ~ 세만"
+                }
+            }
+            else {
+                if (keywordAgeMin.toInt() == -1) {
+                    tv_keywordAge.text = "~ ${keywordAgeMax}세만"
+                } else {
+                    tv_keywordAge.text = "$keywordAgeMin ~ ${keywordAgeMax}세만"
+                }
+            }
+
+            tv_Content.text = recruit.content
+
+
 
             // 참여하기
             val btJoin = dialog.findViewById<Button>(R.id.bt_EnterRecruit)
