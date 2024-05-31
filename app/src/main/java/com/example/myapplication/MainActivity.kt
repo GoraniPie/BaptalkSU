@@ -34,10 +34,8 @@ class MainActivity : AppCompatActivity() {
                 Log.w(TAG, "Fetching FCM registration token failed", task.exception)
                 return@addOnCompleteListener
             }
-
             // Get new FCM registration token
             val token = task.result
-
             // Save token to database
             val currentUser = FirebaseAuth.getInstance().currentUser
             if (currentUser != null && token != null) {

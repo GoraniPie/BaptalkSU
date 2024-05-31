@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.app.Dialog
+import android.content.Context
 import android.icu.util.Calendar
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,12 +10,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
-class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
+class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private val context: Context) :
     RecyclerView.Adapter<RecruitAdapter.RecruitViewHolder>() {
 
     inner class RecruitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -32,13 +35,20 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
 
     override fun onBindViewHolder(holder: RecruitViewHolder, position: Int) {
         val recruit = recruitList[position]
+        val firestore = FirebaseFirestore.getInstance()
+        // 리스트에 유저 이름 표시
+        val uploaderName = firestore.collection("user").document(recruit.uploader_id).get().addOnSuccessListener {document->
+            holder.uploader.text = document.getString("name")
+        }.addOnFailureListener {
+            holder.uploader.text = "탈퇴한 사용자"
+        }
 
-        if (recruit.uploader == "") holder.uploader.text = "탈퇴한 사용자"
-        else holder.uploader.text = recruit.uploader
 
-        holder.title.text = recruit.title
+
+        // 제목, 인원, 식사장소 표시
+        holder.title.text = "${recruit.title} (${recruit.headcount_current} / ${recruit.headcount_max})"
         holder.place.text = "식사 장소 : ${recruit.place}"
-
+        // 모집 시간 표시
         val date = recruit.baptime?.toDate()
         val calendar: Calendar = Calendar.getInstance()
         calendar.time = date
@@ -46,6 +56,7 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
         val minute = calendar.get(Calendar.MINUTE).toString()
         holder.baptime.text = "식사 시간 : ${hour}시 ${minute}분"
 
+        // 모집글 세부조회
         holder.itemView.setOnClickListener {
             val dialog = Dialog(holder.itemView.context)
             dialog.setContentView(R.layout.detail_recruit)
@@ -54,7 +65,7 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
             val placeTextView = dialog.findViewById<TextView>(R.id.tv_Place)
             val baptimeTextView = dialog.findViewById<TextView>(R.id.tv_Time)
             val keywordMajor = dialog.findViewById<TextView>(R.id.tv_KeywordMajor)
-            //val keywordSex = dialog.findViewById<TextView>(R.id.tv_KeywordSex)
+            // val keywordSex = dialog.findViewById<TextView>(R.id.tv_KeywordSex)
             val keywordMBTI = dialog.findViewById<TextView>(R.id.tv_KeywordMBTI)
 
             // 닫기 버튼
@@ -69,6 +80,7 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
             placeTextView.text = "식사 장소 : ${recruit.place}"
             baptimeTextView.text = "식사 시간 : ${hour}시 ${minute}분"
 
+            // 참여하기
             val btJoin = dialog.findViewById<Button>(R.id.bt_EnterRecruit)
             btJoin.setOnClickListener {
                 Log.i("참여하기", "클릭됨")
@@ -77,25 +89,53 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>) :
                     return@setOnClickListener
                 }
 
-                // 채팅방의 사용자 목록에 현재 사용자 추가
                 val database: DatabaseReference = FirebaseDatabase.getInstance().reference
-
-                database.child("chatRooms").child(recruit.post_id).child("users").child(currentUser.uid).setValue(true)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Log.i("채팅방 참여 성공", "ㅇㅇ")
-                        }
-                        else {
-                            Log.e("채팅방 참여 실패", "ㅇㅇ")
-                        }
+                val firestore = FirebaseFirestore.getInstance()
+                // 최대 참여자 수에 도달한 경우 참여 거절. 아니라면 참여
+                firestore.collection("recruitment").document(recruit.post_id).get().addOnSuccessListener { document ->
+                    val currentHeadcount = document.getLong("headcount_current") ?: 0
+                    val maxHeadcount = document.getLong("headcount_max") ?: 0
+                    if (currentHeadcount >= maxHeadcount) {
+                        popUpDialog(context, "이미 꽉 찬 모집입니다.")
+                    } else {
+                        // 채팅방의 사용자 목록에 현재 사용자 추가
+                        database.child("chatRooms").child(recruit.post_id).child("users").child(currentUser.uid).setValue(true)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.i("채팅방 참여 성공", "ㅇㅇ")
+                                    val firestore = FirebaseFirestore.getInstance()
+                                    val chatRoomData = firestore.collection("recruitment").document(recruit.post_id)
+                                    chatRoomData.get().addOnSuccessListener { document ->
+                                        val headcountCurrent = document.getLong("headcount_current") ?: 0
+                                        // 현재 인원 업데이트
+                                        val update = hashMapOf<String, Any>(
+                                            "headcount_current" to (headcountCurrent + 1),
+                                        )
+                                        firestore.collection("recruitment").document(recruit.post_id).update(update)
+                                    }
+                                } else {
+                                    popUpDialog(context, "참여에 실패했습니다.")
+                                }
+                            }
                     }
+                }
             }
             dialog.show()
         }
-
     }
 
     override fun getItemCount() = recruitList.size
+
+    fun popUpDialog(context: Context, msg: String) {
+        val dialogBuilder = AlertDialog.Builder(context)
+        dialogBuilder.setTitle("")
+        dialogBuilder.setMessage(msg)
+        // 다이얼로그 팝업
+        dialogBuilder.setNegativeButton("닫기") { dialog, _ ->
+            dialog.dismiss()
+        }
+        dialogBuilder.create().show()
+    }
 
     fun updateList(newList: List<RecruitDataModel>) {
         recruitList = newList

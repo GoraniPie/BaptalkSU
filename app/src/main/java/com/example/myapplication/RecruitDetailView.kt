@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 
@@ -20,7 +21,7 @@ class RecruitDetailView : AppCompatActivity() {
             }
         }
 
-        val btClosePopup = findViewById<Button>(R.id.ibt_ClosePopup)
+        val btClosePopup = findViewById<ImageButton>(R.id.ibt_ClosePopup)
         btClosePopup.setOnClickListener {
             Log.i("팝업버튼 닫기", "클릭확인됨")
             finish()

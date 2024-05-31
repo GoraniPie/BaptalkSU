@@ -336,7 +336,7 @@ class PostRecruitment : AppCompatActivity() {
             lastMessage = "",
             lastMessageSender = "",
             lastMessageTime = System.currentTimeMillis(),
-            users = users
+            users = users,
         )
 
         database.child("chatRooms").child(roomId).setValue(chatRoom).addOnCompleteListener { task ->

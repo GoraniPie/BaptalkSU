@@ -115,7 +115,7 @@ class ChatActivity : AppCompatActivity() {
         }
 
         buttonExitChat.setOnClickListener {
-            // TODO: 나가시겠습니까? yes no
+            Log.i("채팅방 나가기 눌러짐", "ㅇㅇ")
             val dialogBuilder = AlertDialog.Builder(this)
             dialogBuilder.setTitle("채팅방 나가기")
             dialogBuilder.setMessage("채팅방을 나가시겠습니까?")
@@ -123,35 +123,54 @@ class ChatActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             dialogBuilder.setPositiveButton("나가기") { dialog, which ->
-                database.child("chatRooms").child(roomId).child("creatorId").get().addOnCompleteListener { task->
-                    if (task.isSuccessful) {
-                        Log.i("creatorId", task.result.toString())
-                        // 채팅방 생성자(=모집글 작성자)가 나가면 방 파괴
-                        if (task.result.value == auth.currentUser?.uid) {
-                            database.child("chatRooms").child(roomId).removeValue()
-                                .addOnCompleteListener {
-                                    firestore.collection("recruitment").document(roomId).delete()
-                                        .addOnCompleteListener {
+                database.child("chatRooms").child(roomId).child("creatorId").get()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.i("creatorId", task.result.toString())
+                            // 채팅방 생성자(=모집글 작성자)가 나가면 방 파괴
+                            if (task.result.value == auth.currentUser?.uid) {
+                                database.child("chatRooms").child(roomId).removeValue()
+                                    .addOnCompleteListener {
+                                        firestore.collection("recruitment").document(roomId)
+                                            .delete()
+                                            .addOnCompleteListener {
+                                                finish()
+                                            }
+                                    }.addOnFailureListener {
+                                        Toast.makeText(this, "채팅방 나가기 실패", Toast.LENGTH_LONG).show()
+                                    }
+                            } else {
+                                // 일반 사용자 나가기
+                                database.child("chatRooms").child(roomId).child("users")
+                                    .child(auth.currentUser?.uid ?: "")
+                                    .setValue(false).addOnCompleteListener {
+                                        Log.i("db상 채팅방 나가짐 완료", "ㅇㅇ")
+                                        val firestore = FirebaseFirestore.getInstance()
+                                        val chatRoomData =
+                                            firestore.collection("recruitment").document(roomId)
+                                        chatRoomData.get().addOnSuccessListener { document ->
+                                            val headcountCurrent =
+                                                document.getLong("headcount_current") ?: 0
+                                            // 현재 인원 업데이트
+                                            val update = hashMapOf<String, Any>(
+                                                "headcount_current" to (headcountCurrent - 1),
+                                            )
+                                            firestore.collection("recruitment").document(roomId)
+                                                .update(update)
                                             finish()
+                                        }.addOnFailureListener {
+                                            Log.i("db상 채팅방 나가짐 실패", "ㅠㅠ")
+                                            Toast.makeText(this, "채팅방 나가기 실패", Toast.LENGTH_LONG)
+                                                .show()
                                         }
-                                }.addOnFailureListener {
-                                    Toast.makeText(this, "채팅방 나가기 실패", Toast.LENGTH_LONG).show()
-                                }
+                                    }
+                            }
                         }
-                        else {
-                            database.child("chatRooms").child(roomId).child("users").child(auth.currentUser?.uid?:"")
-                                .setValue(false).addOnCompleteListener {
-                                    finish()
-                                }.addOnFailureListener {
-                                    Toast.makeText(this, "채팅방 나가기 실패", Toast.LENGTH_LONG).show()
-                                }
-                        }
+                        else Log.i("채팅방 생성자 찾기실패", "ㅇㅇ")
                     }
-                }
+
             }
             dialogBuilder.create().show()
-
-
 
         }
 

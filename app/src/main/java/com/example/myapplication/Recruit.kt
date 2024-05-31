@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
 /*
-TODO: 모집글 페이지 조회 구현, 모집글 상세조회 구현, 모집글 검색 구현
+TODO: 모집글 검색 구현
  */
 
 class Recruit : Fragment() {
@@ -66,7 +66,7 @@ class Recruit : Fragment() {
         // recyclerView 설정
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recruitAdapter = RecruitAdapter(emptyList())
+        recruitAdapter = context?.let { RecruitAdapter(emptyList(), it) }!!
         recyclerView.adapter = recruitAdapter
 
         // "작성하기" 버튼 클릭 리스너
