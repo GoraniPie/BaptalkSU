@@ -5,7 +5,6 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 설정버튼 연결
-        val btSettings: ImageButton = findViewById<ImageButton>(R.id.ibt_Settings)
+        val btSettings: ImageButton = findViewById<ImageButton>(R.id.iv_ChatProfileImage)
         btSettings.setOnClickListener {
             val intent = Intent(this, Settings::class.java)
             startActivity(intent)

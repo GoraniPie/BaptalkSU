@@ -16,7 +16,7 @@
     <!-- Navigation Buttons and Text View -->
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch_Filter"
-        android:layout_width="wrap_content"
+        android:layout_width="158dp"
         android:layout_height="50dp"
         android:background="@drawable/switch_background"
         android:text="  입장가능 채팅방만 보기"

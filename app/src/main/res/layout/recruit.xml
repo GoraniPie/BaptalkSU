@@ -33,7 +33,7 @@
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/ibt_Settings"
+            android:id="@+id/iv_ChatProfileImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="35sp"

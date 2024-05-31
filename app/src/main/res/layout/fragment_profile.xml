@@ -30,9 +30,9 @@
                     android:id="@+id/p_imageView"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/icon"
-                    tools:src="@drawable/icon"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/baseline_account_circle_24"
+                    tools:src="@drawable/baseline_account_circle_24"
+                    tools:srcCompat="@drawable/baseline_account_circle_24" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

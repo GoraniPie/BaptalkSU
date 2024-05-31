@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.startActivity
@@ -149,7 +150,12 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
 
             tv_Content.text = recruit.content
 
-
+            val viewProfile = dialog.findViewById<ImageView>(R.id.iv_UploaderProfileImage)
+            viewProfile.setOnClickListener {
+                val intent = Intent(context, ViewProfile::class.java)
+                intent.putExtra("uid", recruit.uploader_id)
+                context.startActivity(intent) // 여기서 context를 사용
+            }
 
             // 참여하기
             val btJoin = dialog.findViewById<Button>(R.id.bt_EnterRecruit)

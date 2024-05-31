@@ -43,7 +43,7 @@ class ChatActivity : AppCompatActivity() {
 
         firestore = FirebaseFirestore.getInstance()
 
-        messageAdapter = MessageAdapter(messages)
+        messageAdapter = MessageAdapter(this, messages)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = messageAdapter
 

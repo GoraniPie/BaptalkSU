@@ -36,7 +36,7 @@ class ChatRoomAdapter(
         if (chatRoom.lastMessageSender != "") {
             val userDocRef = database.collection("user").document(chatRoom.lastMessageSender)
             userDocRef.get().addOnSuccessListener { document ->
-                holder.lastMessageSender.text = document.getString("name")
+                holder.lastMessageSender.text = document.getString("name") + " :"
             }
         } else {
             holder.lastMessageSender.text = "새로운 채팅방입니다."
