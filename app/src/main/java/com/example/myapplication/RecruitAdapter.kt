@@ -48,6 +48,8 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
         var keywordAgeMax: Long = -1
         var keywordSex: String = ""
 
+
+
         // db에서 데이터 긁어오기
         firestore.collection("user").document(recruit.uploader_id).get().addOnSuccessListener {document->
             keywordMBTI = document.getString("keyword_mbti")?: ""

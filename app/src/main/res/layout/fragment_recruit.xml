@@ -7,15 +7,6 @@
     tools:context=".MainActivity">
 
     <!-- Search View -->
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="#EAE1E1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/switch_filter"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
 
     <!-- Switch to filter available chat rooms -->
@@ -23,8 +14,8 @@
     <!-- Recycler View -->
 
     <!-- Navigation Buttons and Text View -->
-    <Switch
-        android:id="@+id/switch_filter"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_Filter"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:background="@drawable/switch_background"
@@ -39,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_filter">
+        app:layout_constraintTop_toBottomOf="@+id/switch_Filter">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp" />
+
         </LinearLayout>
     </ScrollView>
 
@@ -68,5 +60,15 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <SearchView
+        android:id="@+id/sv_SearchBox"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
+        android:background="#EAE1E1"
+        android:layoutDirection="rtl"
+        app:layout_constraintEnd_toStartOf="@+id/switch_Filter"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

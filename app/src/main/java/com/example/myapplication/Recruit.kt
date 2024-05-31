@@ -9,12 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Switch
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 
 /*
 TODO: 모집글 검색 구현
@@ -76,6 +80,17 @@ class Recruit : Fragment() {
             postRecruitmentLauncher.launch(intent)
         }
 
+        // 필터링
+        val switch: SwitchCompat = view.findViewById(R.id.switch_Filter)
+        switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                filterRecruitData()
+            }
+            else {
+                loadRecruitData()
+            }
+        }
+
         // Firestore에서 데이터 가져오기
         loadRecruitData()
 
@@ -86,12 +101,53 @@ class Recruit : Fragment() {
     }
 
     private fun loadRecruitData() {
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
         firestore.collection("recruitment")
             .orderBy("created_at", Query.Direction.DESCENDING)
-            .limit(8)
+            .limit(12)
             .get()
             .addOnSuccessListener { documents ->
                 val recruitList = documents.toObjects(RecruitDataModel::class.java)
+                recruitAdapter.updateList(recruitList)
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Recruit", "Error getting documents: ", exception)
+            }
+    }
+
+    private fun filterRecruitData() {
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        var userAge: Long = -1
+        var userMajor: String = ""
+        var userSex: String = ""
+        if (user != null) {
+            firestore.collection("user").document(user.uid).get().addOnSuccessListener {document->
+                userAge = document.getLong("age")?:-1
+                userMajor = document.getString("major")?:""
+                userSex = document.getString("sex")?:""
+            }
+        }
+
+
+        firestore.collection("recruitment")
+            .orderBy("created_at", Query.Direction.DESCENDING)
+            .limit(12)
+            .get()
+            .addOnSuccessListener { documents ->
+                val recruitList = documents.toObjects(RecruitDataModel::class.java)
+                    .filter {document->
+                        // 논리 조건식 필터링
+                        // 자신이 올린 글이거나
+                        (document.uploader_id == (user?.uid?:""))
+                                ||
+                                // 조건을 만족하는 글만 보이기
+                                ((document.keyword_age_max == -1 || document.keyword_age_max >= userAge) && (document.keyword_age_min == -1 || document.keyword_age_min <= userAge)
+                                && (document.keyword_sex == "" || document.keyword_sex == userSex)
+                                && (document.keyword_major == "" || document.keyword_major == userMajor))
+                    }
                 recruitAdapter.updateList(recruitList)
             }
             .addOnFailureListener { exception ->
