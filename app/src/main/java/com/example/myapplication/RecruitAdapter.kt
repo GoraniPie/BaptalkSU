@@ -124,19 +124,23 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
                 tv_keywordMBTI.text  = "#" + recruit.keyword_mbti
             }
 
-
+            // 성별 태그
             if (recruit.keyword_sex == "") {
-                tv_keywordSex.text = "#성별제한 없음"
+                tv_keywordSex.text = "#성별 제한 없음"
             } else {
                 tv_keywordSex.text = "#" + recruit.keyword_sex + " 만"
             }
 
             // 확과 설정
-            tv_keywordMajor.text = "#" + recruit.keyword_major
+            if (recruit.keyword_major == "") {
+                tv_keywordSex.text = "학과 제한 없음"
+            } else {
+                tv_keywordSex.text = "#" + recruit.keyword_sex + " 만"
+            }
 
             if (keywordAgeMax.toInt() == -1) {
                 if (keywordAgeMin.toInt() == -1) {
-                    tv_keywordAge.text = "나이제한 없음"
+                    tv_keywordAge.text = "나이 제한 없음"
                 } else {
                     tv_keywordAge.text = "$keywordAgeMin ~ 세만"
                 }
