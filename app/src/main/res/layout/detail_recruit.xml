@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
-    android:layout_height="520dp"
+    android:layout_height="wrap_content"
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:padding="20dp">
@@ -16,6 +16,7 @@
             android:layout_width="267dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:maxLines="2"
             android:paddingBottom="10dp"
             android:text=" 밥 한끼 같이해요"
             android:textSize="22sp"
@@ -25,7 +26,7 @@
             android:id="@+id/ibt_ClosePopup"
             android:layout_width="41dp"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
+            android:layout_gravity="right|top"
             android:background="#FFFFFF"
             app:srcCompat="@drawable/baseline_gb_24" />
     </LinearLayout>
@@ -53,11 +54,12 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/iv_ModifyRecruit"
             android:layout_width="38dp"
             android:layout_height="36dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/baseline_settings_24" />
+            android:visibility="gone"
+            app:srcCompat="@drawable/baseline_create_24" />
 
     </LinearLayout>
 
@@ -134,6 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="68dp"
         android:ellipsize="end"
+        android:maxLines="4"
         android:text="내용" />
 
     <LinearLayout

@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -156,6 +157,35 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
                 intent.putExtra("uid", recruit.uploader_id)
                 context.startActivity(intent) // 여기서 context를 사용
             }
+
+
+
+            // 수정하기
+            val btModify = dialog.findViewById<ImageView>(R.id.iv_ModifyRecruit)
+            val auth = FirebaseAuth.getInstance()
+            if (recruit.uploader_id == auth.currentUser?.uid) {
+                btModify.visibility = View.VISIBLE
+            }
+            btModify.setOnClickListener {
+                val intent = Intent(context, RecruitModify::class.java)
+                intent.putExtra("uploader_id", recruit.uploader_id)
+                intent.putExtra("uploader_name", uploaderName)
+                intent.putExtra("uploader_major", uploaderMajor)
+                intent.putExtra("uploader_age",uploaderAge)
+                intent.putExtra("baptime", recruit.baptime?.toDate()?.time?:0)
+                intent.putExtra("post_id", recruit.post_id)
+                intent.putExtra("title", recruit.title)
+                intent.putExtra("place", recruit.place)
+                intent.putExtra("content", recruit.content)
+                intent.putExtra("keyword_age_min", recruit.keyword_age_min)
+                intent.putExtra("keyword_age_max", recruit.keyword_age_max)
+                intent.putExtra("keyword_major", recruit.keyword_major)
+                intent.putExtra("keyword_mbti", recruit.keyword_mbti)
+                intent.putExtra("keyword_sex", recruit.keyword_sex)
+                context.startActivity(intent)
+            }
+
+
 
             // 참여하기
             val btJoin = dialog.findViewById<Button>(R.id.bt_EnterRecruit)
