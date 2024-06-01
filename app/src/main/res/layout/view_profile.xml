@@ -78,7 +78,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:text="세부정보"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -88,8 +88,8 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="190dp"
-                android:layout_height="match_parent"
+                android:layout_width="185dp"
+                android:layout_height="220dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -99,7 +99,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="학과"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -109,7 +109,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="컴퓨터공학부"
-                    android:textSize="10sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/p_textView8"
@@ -118,7 +118,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="학년"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -128,7 +128,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="2학년"
-                    android:textSize="10sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/p_textView10"
@@ -137,7 +137,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="생년월일"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -147,11 +147,11 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="2000-01-01"
-                    android:textSize="10sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="190dp"
+                android:layout_width="192dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -162,7 +162,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="성별"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -172,7 +172,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="남성"
-                    android:textSize="10sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/p_textView14"
@@ -181,7 +181,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="MBTI"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
-                    android:textSize="10sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -202,7 +202,7 @@
             android:layout_marginTop="10dp"
             android:text="자기소개"
             android:textAlignment="center"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -211,7 +211,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="안녕하세요! 저는 김철수 입니다."
-            android:textSize="10sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
