@@ -130,7 +130,7 @@ class Recruit : Fragment() {
                 Log.w("Recruit", "Error getting documents: ", exception)
             }
     }
-    fun refreshRecyclerView() {
+    public fun refreshRecyclerView() {
         loadRecruitData()
     }
 

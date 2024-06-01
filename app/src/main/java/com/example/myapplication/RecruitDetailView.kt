@@ -1,14 +1,26 @@
 package com.example.myapplication
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+interface ParentActivityListener {
+    fun onCloseParentActivity()
+}
+class RecruitDetailView : AppCompatActivity(), ParentActivityListener {
+    private lateinit var modifyRecruitLauncher: ActivityResultLauncher<Intent>
 
-class RecruitDetailView : AppCompatActivity() {
+    override fun onCloseParentActivity() {
+        setResult(Activity.RESULT_OK)
+        finish()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState)
@@ -32,4 +44,5 @@ class RecruitDetailView : AppCompatActivity() {
             // join 채팅방
         }
     }
+
 }

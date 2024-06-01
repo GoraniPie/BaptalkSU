@@ -19,4 +19,5 @@ class RecruitDataModel {
     var modified_at: Timestamp? = null
     var baptime: Timestamp? = null
     var content: String = ""
+    var title_content: String = ""
 }

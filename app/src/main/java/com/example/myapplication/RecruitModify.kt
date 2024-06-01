@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -9,9 +10,11 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vane.badwordfiltering.BadWordFiltering
@@ -20,6 +23,7 @@ import java.util.Date
 import java.util.Locale
 
 class RecruitModify : AppCompatActivity() {
+    private var parentListener: ParentActivityListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -142,7 +146,35 @@ class RecruitModify : AppCompatActivity() {
         // 삭제하기
         val deleteRecruit = findViewById<Button>(R.id.bt_DeleteRecruit)
         deleteRecruit.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(this)
+            dialogBuilder.setTitle("")
+            dialogBuilder.setMessage("삭제하시겠습니까? 채팅방도 함께 삭제됩니다.")
+            // 다이얼로그 팝업
+            dialogBuilder.setNegativeButton("취소") { dialog, which ->
+                dialog.dismiss()
+            }
+            dialogBuilder.setPositiveButton("삭제하기") { dialog, _ ->
+                val db = FirebaseFirestore.getInstance()
+                db.collection("recruitment")
+                    .document(postId?:"")
+                    .delete()
+                    .addOnSuccessListener {
+                        // 성공적으로 삭제되었을 때의 처리ㅁㄴ
+                        setResult(RESULT_OK)
+                        val realtime = FirebaseDatabase.getInstance().reference
+                        realtime.child("chatRooms").child(postId?:"").removeValue()
+                            .addOnSuccessListener {
+                                Log.i("글삭->채팅방삭제완", "ㅇㅇ")
+                                parentListener?.onCloseParentActivity()
 
+                            }
+                        finish()
+                    }
+                    .addOnFailureListener { e ->
+                        popUpDialog("삭제에 실패했습니다.")
+                    }
+            }
+            dialogBuilder.create().show()
         }
 
         // 변경사항 저장하기
