@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.vane.badwordfiltering.BadWordFiltering
 import java.sql.Time
 import java.util.Date
 import java.util.logging.Handler
@@ -107,6 +108,7 @@ class SignUp : AppCompatActivity() {
 
         // 인증메일 전송 버튼 클릭시
         bt_Submit.setOnClickListener {
+            val inputName = findViewById<EditText>(R.id.et_InputName)
             val inputEmail = findViewById<EditText>(R.id.et_InputEmail)
             val inputPassword = findViewById<EditText>(R.id.et_InputPassword)
             val userEmail: String = inputEmail.text.toString().trim()
@@ -117,7 +119,7 @@ class SignUp : AppCompatActivity() {
             val birthday = tvBirthday
             val inputSex = findViewById<RadioGroup>(R.id.rdb_Group)
 
-
+            val userName: String = inputName.text.toString().trim()
             val studentID: String = et_StudentID.text.toString().trim()
             val userMajor: String = selectedMajor
             val userBirthday: Date = calendar.time
@@ -129,6 +131,7 @@ class SignUp : AppCompatActivity() {
                 userSex = findViewById<RadioButton>(inputSex.checkedRadioButtonId).text.toString() ?: ""
             }
 
+            val filter = BadWordFiltering()
             // 이메일 검사
             val emailDomain: String = userEmail.split('@').getOrNull(1) ?: "" // 도메인 추출
             // 아이디 비어있나 확인
@@ -147,6 +150,14 @@ class SignUp : AppCompatActivity() {
             // 비밀번호 강도 검사
             else if (!isPasswordSecure(userPassword)) {
                 popUpDialog("비밀번호는 영어, 숫자, 특수문자를 포함한 8자 이상이어야합니다.")
+            }
+            // 이름 공란인가
+            else if (userName == "") {
+                popUpDialog("이름을 입력해주세요.")
+            }
+            // 이름 검열
+            else if (filter.check(userName)) {
+                    popUpDialog("이름에 부적절한 표현이 포함돼있습니다.")
             }
             // 학번 검사
             else if (studentID.length != 10 && studentID.toInt() > (calendar.get(Calendar.YEAR) + 1) * 1000000) {
@@ -188,7 +199,7 @@ class SignUp : AppCompatActivity() {
                                 "is_verified" to 0,
                                 "last_modified" to now,
                                 "major" to userMajor,
-                                "name" to "익명",
+                                "name" to userName,
                                 "sex" to userSex,
                                 "student_id" to studentID,
                                 "uid" to useruid

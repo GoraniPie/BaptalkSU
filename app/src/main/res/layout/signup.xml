@@ -58,8 +58,9 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="example@syuin.ac.kr"
                 android:inputType="textEmailAddress"
-                android:text="intelpieservice@syuin.ac.kr" />
+                android:maxLength="30" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -75,7 +76,23 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:text="asdf1234!@" />
+                android:maxLength="30" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="이름 (닉네임)" />
+
+            <EditText
+                android:id="@+id/et_InputName"
+                android:layout_width="203dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="text"
+                android:maxLength="8" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -90,8 +107,9 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="2024123456"
                 android:inputType="number"
-                android:text="2022123456" />
+                android:maxLength="10" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -103,7 +121,7 @@
             <Spinner
                 android:id="@+id/sp_MajorList"
                 android:layout_width="215dp"
-                android:layout_height="36dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="8dp" />
 
             <TextView
@@ -116,9 +134,9 @@
             <TextView
                 android:id="@+id/tv_DatePicker"
                 android:layout_width="211dp"
-                android:layout_height="34dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="8dp"
-                android:text="날짜"
+                android:text="날짜 입력하기"
                 android:textSize="20sp" />
 
             <TextView
