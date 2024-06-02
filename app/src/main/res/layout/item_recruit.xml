@@ -38,7 +38,8 @@
             android:id="@+id/recruitTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
+            android:ellipsize="middle"
+            android:maxLines="1"
             android:text="Title"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -54,6 +55,8 @@
             android:id="@+id/recruitPlace"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="place"
             android:textSize="14sp" />
     </LinearLayout>

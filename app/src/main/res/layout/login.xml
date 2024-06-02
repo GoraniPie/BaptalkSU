@@ -81,7 +81,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="#0000FF"
+        android:backgroundTint="#0088FF"
         android:text="로그인"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

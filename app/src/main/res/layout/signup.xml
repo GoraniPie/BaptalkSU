@@ -92,7 +92,7 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="text"
-                android:maxLength="8" />
+                android:maxLength="10" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#0000FF"
+                android:backgroundTint="#0088FF"
                 android:gravity="center"
                 android:text="회원가입" />
 

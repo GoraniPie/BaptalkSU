@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">BaptalkSU</string>
     <string-array name="departments_array">
         <item>영어영문학과</item>
         <item>경영학과</item>

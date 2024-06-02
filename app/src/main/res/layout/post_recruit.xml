@@ -58,7 +58,7 @@
                 android:layout_marginStart="30dp"
                 android:ems="10"
                 android:inputType="text"
-                android:maxLength="80"
+                android:maxLength="30"
                 android:scrollHorizontally="true"
                 android:textSize="15sp" />
 
@@ -74,7 +74,7 @@
             <TextView
                 android:id="@+id/tv_BapTime"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="30dp"
                 android:text="시간 설정"
                 android:textSize="20sp" />
@@ -91,7 +91,7 @@
 
             <Spinner
                 android:id="@+id/sp_MaxHeadcount"
-                android:layout_width="70sp"
+                android:layout_width="102dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="30dp" />
 
@@ -111,7 +111,7 @@
                 android:layout_marginStart="28dp"
                 android:ems="10"
                 android:inputType="text"
-                android:maxLength="80"
+                android:maxLength="30"
                 android:scrollHorizontally="true"
                 android:textSize="15sp" />
 
@@ -133,7 +133,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                android:maxLength="400"
+                android:maxLength="300"
                 android:textSize="15sp" />
 
             <TextView
@@ -148,23 +148,23 @@
             <Spinner
                 android:id="@+id/sp_KeywordMajor"
                 android:layout_width="200dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="30dp" />
 
 
             <Spinner
-                    android:id="@+id/sp_KeywordMBTI"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                android:id="@+id/sp_KeywordMBTI"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp" />
 
             <Spinner
-                    android:id="@+id/sp_KeywordSex"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                android:id="@+id/sp_KeywordSex"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/textView19"
@@ -213,7 +213,7 @@
                 android:layout_marginStart="30sp"
                 android:layout_marginTop="40sp"
                 android:layout_marginEnd="30sp"
-                android:backgroundTint="#0000FF"
+                android:backgroundTint="#0088FF"
                 android:gravity="center"
                 android:text="작성하기"
                 android:textSize="15sp" />

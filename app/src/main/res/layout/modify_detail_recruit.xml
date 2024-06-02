@@ -224,10 +224,11 @@
             android:id="@+id/bt_DeleteRecruit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginLeft="40dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
             android:backgroundTint="#F63535"
             android:text="삭제" />
 
@@ -235,10 +236,11 @@
             android:id="@+id/bt_SubmitModification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginLeft="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
             android:backgroundTint="#0088FF"
             android:text="저장" />
     </LinearLayout>
