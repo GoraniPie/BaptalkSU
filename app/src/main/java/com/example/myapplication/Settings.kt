@@ -16,11 +16,26 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class Settings : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.setting)
+
+        val auth = FirebaseAuth.getInstance()
+        val firestore = FirebaseFirestore.getInstance()
+
+
+        // 계정 생성일
+        val tv_createdAt = findViewById<TextView>(R.id.tv_UserCreatedAt)
+        val createdAt = firestore.collection("user").document(auth.currentUser?.uid?:"").get()
+            .addOnSuccessListener { document->
+                val date = document.getTimestamp("created_at")?.toDate()
+                val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault())
+                tv_createdAt.text = dateFormat.format(date)
+            }
 
         // 뒤로가기 버튼
         val btBack: ImageButton = findViewById<ImageButton>(R.id.ibt_CloseProfileModification)

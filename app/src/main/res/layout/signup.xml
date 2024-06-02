@@ -71,7 +71,7 @@
 
             <EditText
                 android:id="@+id/et_InputPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
@@ -87,7 +87,7 @@
 
             <EditText
                 android:id="@+id/et_InputName"
-                android:layout_width="203dp"
+                android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
@@ -103,13 +103,29 @@
 
             <EditText
                 android:id="@+id/et_StudentID"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:hint="2024123456"
                 android:inputType="number"
                 android:maxLength="10" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="학년" />
+
+            <EditText
+                android:id="@+id/et_InputGrade"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="number"
+                android:maxLength="1" />
 
             <TextView
                 android:id="@+id/textView5"

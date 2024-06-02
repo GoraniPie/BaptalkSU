@@ -111,6 +111,7 @@ class SignUp : AppCompatActivity() {
             val inputName = findViewById<EditText>(R.id.et_InputName)
             val inputEmail = findViewById<EditText>(R.id.et_InputEmail)
             val inputPassword = findViewById<EditText>(R.id.et_InputPassword)
+            val inputGrade = findViewById<EditText>(R.id.et_InputGrade)
             val userEmail: String = inputEmail.text.toString().trim()
             val userPassword: String = inputPassword.text.toString().trim()
 
@@ -126,6 +127,7 @@ class SignUp : AppCompatActivity() {
             val userBirthdayYear = selectedYear
             val userBirthdayMonth = selectedMonth
             val userBirthdayDay = selectedDay
+            val userGrade = inputGrade.text.toString().trim().toIntOrNull()?:-1
             var userSex: String = ""
             if (inputSex.checkedRadioButtonId != -1) {
                 userSex = findViewById<RadioButton>(inputSex.checkedRadioButtonId).text.toString() ?: ""
@@ -162,6 +164,10 @@ class SignUp : AppCompatActivity() {
             // 학번 검사
             else if (studentID.length != 10 && studentID.toInt() > (calendar.get(Calendar.YEAR) + 1) * 1000000) {
                 popUpDialog("잘못된 학번입니다.")
+            }
+            // 학년 검사
+            else if (userGrade > 4 && userGrade < 1) {
+                popUpDialog("잘못된 학년입니다.")
             }
             // 전공 선택 안할시
             else if (selectedMajor == "") {
@@ -202,7 +208,8 @@ class SignUp : AppCompatActivity() {
                                 "name" to userName,
                                 "sex" to userSex,
                                 "student_id" to studentID,
-                                "uid" to useruid
+                                "uid" to useruid,
+                                "grade" to userGrade,
                             )
                             firestoreDB.collection("user").document(useruid).set(userDB)
 
