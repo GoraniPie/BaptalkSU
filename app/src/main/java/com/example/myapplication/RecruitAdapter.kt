@@ -389,6 +389,10 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
 
     override fun getItemCount() = recruitList.size
 
+    fun addItems(newList: List<RecruitDataModel>) {
+        recruitList += newList
+    }
+
     fun checkRecruitExist(postId: String): Task<Boolean> {
         val db = FirebaseFirestore.getInstance()
 

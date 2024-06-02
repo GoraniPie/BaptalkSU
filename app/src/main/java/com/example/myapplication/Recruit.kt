@@ -17,6 +17,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
@@ -28,6 +29,7 @@ class Recruit : Fragment() {
     private val firestore = FirebaseFirestore.getInstance()
     // startactivity 대체
     private lateinit var postRecruitmentLauncher: ActivityResultLauncher<Intent>
+    private var lastVisibleDocument: DocumentSnapshot? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,7 +41,7 @@ class Recruit : Fragment() {
                 Log.i("intent 닫힘", "intent 닫힘.")
                 firestore.collection("recruitment")
                     .orderBy("created_at", Query.Direction.DESCENDING) // 최신순으로 가져오기
-                    .limit(8)
+                    .limit(10)
                     .get()
                     .addOnSuccessListener { documents ->
                         val recruitList = documents.toObjects(RecruitDataModel::class.java)
@@ -67,6 +69,17 @@ class Recruit : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recruitAdapter = context?.let { RecruitAdapter(emptyList(), it) }!!
         recyclerView.adapter = recruitAdapter
+
+        // 맨 아래에 도달한 경우 다음 데이터를 로드
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Log.i("리스트 맨 아래 도착", "ㅇㅇ")
+                    loadNextRecruitData()
+                }
+            }
+        })
 
         // "작성하기" 버튼 클릭 리스너
         val btPostNew = view.findViewById<ImageButton>(R.id.ibt_PostNew)
@@ -106,6 +119,31 @@ class Recruit : Fragment() {
         // Firestore에서 데이터 가져오기
         loadRecruitData()
 
+    }
+
+    private fun loadNextRecruitData() {
+        // 현재 표시된 항목의 개수를 가져옴
+        val currentItemCount = recruitAdapter.itemCount
+
+        // 현재 표시된 항목의 개수를 기준으로 다음 데이터를 로드
+        firestore.collection("recruitment")
+            .orderBy("created_at", Query.Direction.DESCENDING)
+            .startAfter(lastVisibleDocument) // 마지막으로 로드한 문서의 다음부터 시작
+            .limit(20)
+            .get()
+            .addOnSuccessListener { documents ->
+                // 마지막으로 로드한 문서 갱신
+                if (documents.size() > 0) {
+                    lastVisibleDocument = documents.documents[documents.size() - 1]
+                }
+
+                val recruitList = documents.toObjects(RecruitDataModel::class.java)
+                // 기존 데이터에 추가
+                recruitAdapter.addItems(recruitList)
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Recruit", "Error getting documents: ", exception)
+            }
     }
     private fun searchRecruitData(query: String) {
         firestore.collection("recruitment")
