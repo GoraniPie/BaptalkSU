@@ -10,10 +10,11 @@
         android:id="@+id/textView10"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:background="#A0D3FF"
+        android:background="#0088FF"
         android:elevation="10dp"
         android:gravity="center"
         android:text="프로필 조회"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         tools:layout_editor_absoluteX="40dp" />
 
@@ -130,24 +131,6 @@
                     android:text="2학년"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/p_textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="생년월일"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_OtherProfileBirthday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="2000-01-01"
-                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout

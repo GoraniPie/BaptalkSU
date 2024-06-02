@@ -36,7 +36,6 @@ class ViewProfile : AppCompatActivity() {
         Log.i("버튼 로딩", "ㅇㅇ")
         val tvName = findViewById<TextView>(R.id.tv_OtherProfileName)
         val tvMajor = findViewById<TextView>(R.id.tv_OtherProfileMajor)
-        val tvBirthday = findViewById<TextView>(R.id.tv_OtherProfileBirthday)
         val tvSex = findViewById<TextView>(R.id.tv_OtherProfileSex)
         val tvPofileMsg = findViewById<TextView>(R.id.tv_OtherProfileStatusMessage)
         val tvGrade = findViewById<TextView>(R.id.tv_OtherProfileGrade)
@@ -64,21 +63,12 @@ class ViewProfile : AppCompatActivity() {
                 tvMajor?.text = document.getString("major")
                 tvPofileMsg?.text = document.getString("profile_message")
                 tvGrade?.text = document.getLong("grade").toString()
-                tvMBTI?.text = document.getString("mbti")
-
-                val timestamp = document.getTimestamp("birthday")
-                if (timestamp != null) {
-                    val date = timestamp.toDate()
-                    val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault())
-                    tvBirthday?.text = dateFormat.format(date)
-                } else {
-                    tvBirthday?.text = "N/A"
-                }
+                tvMBTI?.text = document.getString("mbti")?:""
+                if (tvMBTI?.text == "") tvMBTI?.text = "MBTI 미설정"
                 tvSex?.text = document.getString("sex")
             } else {
                 tvName?.text = ""
                 tvMajor?.text = ""
-                tvBirthday?.text = ""
                 tvSex?.text = ""
             }
         }
