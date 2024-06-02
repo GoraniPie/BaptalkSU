@@ -45,7 +45,8 @@ class Chat : Fragment() {
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser == null) {
-            Toast.makeText(context, "User not logged in", Toast.LENGTH_SHORT).show()
+            val toast = Toast.makeText(requireContext(), "로그인되어있지 않습니다.", Toast.LENGTH_SHORT)
+            toast.show()
             return
         }
 

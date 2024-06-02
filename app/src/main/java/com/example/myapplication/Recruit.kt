@@ -21,9 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 
-/*
-TODO: 모집글 검색 구현
- */
 
 class Recruit : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -33,9 +30,6 @@ class Recruit : Fragment() {
     private lateinit var postRecruitmentLauncher: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
 
         // 창 닫기 리스너
         postRecruitmentLauncher = registerForActivityResult(
