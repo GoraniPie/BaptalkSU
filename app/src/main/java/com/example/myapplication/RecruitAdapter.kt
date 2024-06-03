@@ -278,57 +278,52 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
                                                                         userAge = document.getLong("age") ?: -1
                                                                         userMajor = document.getString("major") ?: ""
                                                                         userSex = document.getString("sex") ?: ""
-                                                                    }
-                                                            }
-                                                            if (user != null) {
-                                                                if (
-                                                                    !((document.getString("uploader_id") == (user.uid
-                                                                        ?: ""))
-                                                                            ||
-                                                                            ((document.getLong("keyword_age_max")
-                                                                                ?.toInt() == -1 || document.getLong("keyword_age_max")!! >= userAge)
-                                                                                    && (document.getLong("keyword_age_min")
-                                                                                ?.toInt() == -1 || document.getLong("keyword_age_min")!! <= userAge)
-                                                                                    && (document.getString("keyword_sex") == "" || document.getString(
-                                                                                "keyword_sex"
-                                                                            ) == userSex)
-                                                                                    && (document.getString("keyword_major") == "" || document.getString(
-                                                                                "keyword_major"
-                                                                            ) == userMajor)))
-                                                                ) {
-                                                                    popUpDialog(context, "참가할 수 없는 모집입니다.")
-                                                                } else {
-                                                                    database.child("chatRooms").child(recruit.post_id)
-                                                                        .child("users").child(currentUser?.uid?:"")
-                                                                        .setValue(true)
-                                                                        .addOnCompleteListener { task ->
-                                                                            if (task.isSuccessful) {
-                                                                                Log.i("채팅방 참여 성공", "ㅇㅇ")
-                                                                                val firestore =
-                                                                                    FirebaseFirestore.getInstance()
-                                                                                val chatRoomData =
-                                                                                    firestore.collection("recruitment")
-                                                                                        .document(recruit.post_id)
-                                                                                chatRoomData.get()
-                                                                                    .addOnSuccessListener { document ->
-                                                                                        val headcountCurrent =
-                                                                                            document.getLong("headcount_current")
-                                                                                                ?: 0
-                                                                                        // 현재 인원 업데이트
-                                                                                        val update =
-                                                                                            hashMapOf<String, Any>(
-                                                                                                "headcount_current" to (headcountCurrent + 1),
-                                                                                            )
-                                                                                        firestore.collection("recruitment")
-                                                                                            .document(recruit.post_id)
-                                                                                            .update(update)
-                                                                                    }
+                                                                        if (user != null) {
+                                                                            if (
+                                                                                !((document.getString("uploader_id") == (user.uid?:""))
+                                                                                        ||
+                                                                                        // 조건을 만족하는 글만 보이기
+                                                                                        ((document.getLong("keyword_age_max")?:-1L == -1L || document.getLong("keyword_age_max")?:-1L >= userAge)
+                                                                                                && (document.getLong("keyword_age_min")?:-1L == -1L || document.getLong("keyword_age_min")?:-1L <= userAge)
+                                                                                                && (document.getString("keyword_sex")?:"" == "" || document.getString("keyword_sex")?:"" == userSex)
+                                                                                                && (document.getString("keyword_major")?:"" == "" || document.getString("keyword_major")?:"" == userMajor)))
+                                                                            ) {
+                                                                                popUpDialog(context, "참가할 수 없는 모집입니다.")
                                                                             } else {
-                                                                                popUpDialog(context, "참여에 실패했습니다.")
+                                                                                database.child("chatRooms").child(recruit.post_id)
+                                                                                    .child("users").child(currentUser?.uid?:"")
+                                                                                    .setValue(true)
+                                                                                    .addOnCompleteListener { task ->
+                                                                                        if (task.isSuccessful) {
+                                                                                            Log.i("채팅방 참여 성공", "ㅇㅇ")
+                                                                                            val firestore =
+                                                                                                FirebaseFirestore.getInstance()
+                                                                                            val chatRoomData =
+                                                                                                firestore.collection("recruitment")
+                                                                                                    .document(recruit.post_id)
+                                                                                            chatRoomData.get()
+                                                                                                .addOnSuccessListener { document ->
+                                                                                                    val headcountCurrent =
+                                                                                                        document.getLong("headcount_current")
+                                                                                                            ?: 0
+                                                                                                    // 현재 인원 업데이트
+                                                                                                    val update =
+                                                                                                        hashMapOf<String, Any>(
+                                                                                                            "headcount_current" to (headcountCurrent + 1),
+                                                                                                        )
+                                                                                                    firestore.collection("recruitment")
+                                                                                                        .document(recruit.post_id)
+                                                                                                        .update(update)
+                                                                                                }
+                                                                                        } else {
+                                                                                            popUpDialog(context, "참여에 실패했습니다.")
+                                                                                        }
+                                                                                    }
                                                                             }
                                                                         }
-                                                                }
+                                                                    }
                                                             }
+
                                                         } else {
                                                             // 문서가 존재하지 않는 경우
                                                             popUpDialog(context, "존재하지 않는 문서입니다.")

@@ -172,6 +172,8 @@ class ChatActivity : AppCompatActivity() {
             }
             dialogBuilder.create().show()
 
+            // TODO: 모집글 생성자는 참가자 강제퇴장시킬 수 있음.
+
         }
 
     }

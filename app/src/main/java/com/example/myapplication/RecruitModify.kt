@@ -216,6 +216,7 @@ class RecruitModify : AppCompatActivity() {
                 popUpDialog("내용에 부적절한 표현이 포함돼있습니다.")
             }
             else {
+                // TODO: 채팅방 이름도 바뀌도록 수정?
                 val updates = hashMapOf<String, Any>(
                     "last_modified" to FieldValue.serverTimestamp(), // 현재 서버 시간으로 업데이트
                     "title" to finalTitle,
