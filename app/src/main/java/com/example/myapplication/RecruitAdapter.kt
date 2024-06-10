@@ -54,36 +54,45 @@ class RecruitAdapter(private var recruitList: List<RecruitDataModel>, private va
         var uploaderName: String = ""
         var uploaderAge: Long = -1
         var uploaderMajor: String = ""
+        var hour: String = ""
+        var minute: String = ""
 
         // db에서 데이터 긁어오기
         firestore.collection("user").document(recruit.uploader_id).get().addOnSuccessListener {document->
-            val birthday = document.getTimestamp("birthday")?.toDate()
-            val date: Date? = birthday
-            val calendar: Calendar = Calendar.getInstance()
-            val currentYear = calendar.get(Calendar.YEAR)
-            calendar.time = date
-            val userBirthYear = calendar.get(Calendar.YEAR)
+            if (document.exists()) {
+                Log.i("여기서 에러", document.getString("name")?:"" + document.getString("uid")?:"")
+                Log.i("recruit정보", recruit.post_id)
+                val birthday = document.getTimestamp("birthday")?.toDate()
+                val date: Date? = birthday
+                val calendar: Calendar = Calendar.getInstance()
+                val currentYear = calendar.get(Calendar.YEAR)
+                calendar.time = date
+                val userBirthYear = calendar.get(Calendar.YEAR)
 
-            uploaderAge = (currentYear - userBirthYear).toLong()
-            uploaderMajor = document.getString("major")?:""
+                uploaderAge = (currentYear - userBirthYear).toLong()
+                uploaderMajor = document.getString("major")?:""
 
-            uploaderName = document.getString("name")?:"알 수 없음"
-            holder.uploader.text = uploaderName
-
+                uploaderName = document.getString("name")?:"알 수 없음"
+                holder.uploader.text = uploaderName
+                // 제목, 인원, 식사장소 표시
+                holder.title.text = "${recruit.title} (${recruit.headcount_current} / ${recruit.headcount_max})"
+                holder.place.text = "식사 장소 : ${recruit.place}"
+                // 모집 시간 표시
+                val date2 = recruit.baptime?.toDate()
+                val calendar2: Calendar = Calendar.getInstance()
+                calendar2.time = date2
+                hour = calendar2.get(Calendar.HOUR_OF_DAY).toString()
+                minute = calendar2.get(Calendar.MINUTE).toString()
+                holder.baptime.text = "식사 시간 : ${hour}시 ${minute}분"
+            }
+            else {
+                holder.uploader.text = "탈퇴한 사용자"
+            }
         }.addOnFailureListener {
             holder.uploader.text = "탈퇴한 사용자"
         }
 
-        // 제목, 인원, 식사장소 표시
-        holder.title.text = "${recruit.title} (${recruit.headcount_current} / ${recruit.headcount_max})"
-        holder.place.text = "식사 장소 : ${recruit.place}"
-        // 모집 시간 표시
-        val date = recruit.baptime?.toDate()
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.time = date
-        val hour = calendar.get(Calendar.HOUR_OF_DAY).toString()
-        val minute = calendar.get(Calendar.MINUTE).toString()
-        holder.baptime.text = "식사 시간 : ${hour}시 ${minute}분"
+
 
         // 모집글 세부조회
         holder.itemView.setOnClickListener {

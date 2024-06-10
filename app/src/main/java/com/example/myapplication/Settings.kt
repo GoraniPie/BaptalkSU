@@ -1,10 +1,12 @@
 package com.example.myapplication
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
@@ -16,6 +18,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -54,7 +57,7 @@ class Settings : AppCompatActivity() {
         editText.hint = "탈퇴하겠습니다."
 
         dialogBuilder.setTitle("탈퇴하시겠습니까?")
-        dialogBuilder.setMessage("탈퇴하려면 \"탈퇴하겠습니다.\"를 입력하세요.")
+        dialogBuilder.setMessage("탈퇴하면 계정의 모든 작성글과 회원정보가 삭제되며, 되돌릴 수 없게 됩니다.\n탈퇴하려면 \"탈퇴하겠습니다.\"를 입력하세요.")
         dialogBuilder.setView(editText)
 
         dialogBuilder.setPositiveButton("탈퇴하기") { dialogInterface, _ ->
@@ -134,6 +137,21 @@ class Settings : AppCompatActivity() {
             }.addOnFailureListener { e ->
                 Toast.makeText(this, "유저 정보 삭제 실패: ${e.message}", Toast.LENGTH_LONG).show()
             }
+            firestoreDB.collection("recruitment").whereEqualTo("uploader_id", uid)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        // 각 문서 삭제
+                        firestoreDB.collection("recruitment").document(document.id)
+                            .delete()
+                            .addOnFailureListener { e ->
+                                Log.w("모든 작성글 삭제", "실패함", e)
+                            }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("DeleteDocuments", "Error getting documents: ", exception)
+                }
         }.addOnFailureListener { e ->
             Toast.makeText(this, "계정 삭제 실패: ${e.message}", Toast.LENGTH_LONG).show()
         }
@@ -146,16 +164,40 @@ class Settings : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
+        FirebaseAuth.getInstance().signOut()
 
         dialogBuilder.setTitle("탈퇴 완료")
         dialogBuilder.setMessage("메인 화면으로 돌아갑니다.")
         dialogBuilder.setNegativeButton("닫기") { dialog, _ ->
-            dialog.dismiss()
             // 다이얼로그 닫힘 후 약간의 지연을 두고 액티비티 전환
             Handler(Looper.getMainLooper()).postDelayed({
                 finish()
+                try {
+                    // 캐시 삭제
+                    val cacheDir = this.cacheDir
+                    deleteDir(cacheDir)
+
+                    // 파일 디렉토리 삭제
+                    val filesDir = this.filesDir
+                    deleteDir(filesDir)
+
+                    // SharedPreferences 삭제
+                    val sharedPreferences = this.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.clear()
+                    editor.apply()
+
+                    // 다른 SharedPreferences 파일들도 삭제
+                    val prefsDir = File(this.filesDir.parent, "shared_prefs")
+                    deleteDir(prefsDir)
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
                 val intent = Intent(this, Splash::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
+                Runtime.getRuntime().exit(0)
             }, 300)
         }
         dialogBuilder.create().show()
@@ -169,5 +211,20 @@ class Settings : AppCompatActivity() {
             dialog.dismiss()
         }
         dialogBuilder.create().show()
+    }
+    private fun deleteDir(dir: File?): Boolean {
+        if (dir != null && dir.isDirectory) {
+            val children = dir.list()
+            if (children != null) {
+                for (child in children) {
+                    val success = deleteDir(File(dir, child))
+                    if (!success) {
+                        return false
+                    }
+                }
+            }
+        }
+        // 디렉토리가 비었거나 파일이면 삭제
+        return dir?.delete() ?: false
     }
 }
